@@ -6,6 +6,7 @@ import {
 } from '@storybook/react';
 import JSXAddon, { jsxDecorator } from 'storybook-addon-jsx';
 import { withPropsTable } from 'storybook-addon-react-docgen';
+import theme from './theme';
 
 addDecorator(withPropsTable);
 addDecorator(jsxDecorator);
@@ -13,7 +14,11 @@ setAddon(JSXAddon);
 addParameters({
   options: {
     showPanel: true,
-    panelPosition: 'right'
+    panelPosition: 'right',
+    theme: theme
+  },
+  jsx: {
+    useBooleanShorthandSyntax: false
   }
 });
 
