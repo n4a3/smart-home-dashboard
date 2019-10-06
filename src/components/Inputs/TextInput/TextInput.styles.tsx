@@ -1,8 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { BaseStyled } from '../baseStyle.styles';
-
-export const Label = styled.label``;
+import { BaseStyled } from '../base/baseStyle.styles';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -15,12 +13,8 @@ export const TextInputStyled = styled(({ hasError, ...props }) => (
 ))`
   border: 1px solid #3e4e6c;
 
-  &:hover,
   &:focus {
     border-color: #1f8efa;
-  }
-
-  &:focus {
     color: #1f8efa;
   }
 

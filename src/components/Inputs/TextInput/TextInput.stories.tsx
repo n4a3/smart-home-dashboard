@@ -1,7 +1,7 @@
-import React from 'react';
+import { select, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
+import React from 'react';
 import TextInput from './TextInput';
-import { withKnobs, select } from '@storybook/addon-knobs';
 
 const options = {
   'W/o validation': null,
@@ -13,8 +13,10 @@ storiesOf('Components|TextInput', module)
   .addDecorator(withKnobs)
   .add('Default', () => (
     <TextInput
+      label="Text"
       value={'Sample text'}
       onChange={() => {}}
+      //@ts-ignore
       hasError={select('Validation', options, null)}
     />
   ));

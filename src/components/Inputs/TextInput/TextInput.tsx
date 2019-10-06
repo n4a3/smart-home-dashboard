@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
-import { TextInputStyled, Wrapper, Label, Indicator } from './TextInput.styles';
+import { TextInputStyled, Wrapper, Indicator } from './TextInput.styles';
 import { InputTypes } from '../../../types';
-import { IBaseStyledProps } from '../baseStyle.styles';
+import { IBaseStyledProps } from '../base/baseStyle.styles';
+import BaseInput from '../base';
 
 interface IProps {
   value: string;
@@ -10,6 +11,7 @@ interface IProps {
   hasError?: boolean | null;
   type?: InputTypes;
   pattern?: string;
+  label?: string;
 }
 
 type ITextInputProps = IProps & IBaseStyledProps;
@@ -22,10 +24,11 @@ const TextInput: FC<ITextInputProps> = ({
   type = InputTypes.TEXT,
   pattern,
   width,
-  height
+  height,
+  label
 }) => {
   return (
-    <Label>
+    <BaseInput label={label}>
       <Wrapper>
         <TextInputStyled
           value={value}
@@ -39,7 +42,7 @@ const TextInput: FC<ITextInputProps> = ({
         />
         <Indicator hasError={hasError} />
       </Wrapper>
-    </Label>
+    </BaseInput>
   );
 };
 
