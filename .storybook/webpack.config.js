@@ -1,6 +1,6 @@
 module.exports = ({ config, mode }) => {
-  config.module.rules.push({
-    test: /\.(ts|tsx)$/,
+  config.module.rules.unshift({
+    test: /\.stories\.tsx?$/,
     use: [
       {
         loader: require.resolve('babel-loader'),
@@ -8,8 +8,12 @@ module.exports = ({ config, mode }) => {
           presets: [['react-app', { flow: false, typescript: true }]]
         }
       },
-      require.resolve('react-docgen-typescript-loader')
-    ]
+      {
+        loader: require.resolve('@storybook/source-loader'),
+        options: { parser: 'typescript' }
+      }
+    ],
+    enforce: 'pre'
   });
   config.resolve.extensions.push('.ts', '.tsx');
   return config;
