@@ -19,7 +19,7 @@ const PosedDropdownBody = posed.div({
     opacity: 1
   },
   exit: {
-    y: -100,
+    y: -50,
     opacity: 0
   }
 });
@@ -32,13 +32,34 @@ export const Wrapper = styled.div`
 
 export const DropdownHeader = styled(BaseStyled)`
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const LabelWrapper = styled.div`
+  flex-grow: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+
+export const IconWrapper = styled.div`
+  flex-shrink: 1;
+  margin-right: -5px;
+  margin-left: 8px;
 `;
 
 export const DropdownBody = styled(PosedDropdownBody)<IDropdownBodyProps>`
+  position: absolute;
+  z-index: 1;
   background-color: #20293c;
   border-radius: 4px;
-  width: ${({ bodyWidth }) => bodyWidth};
-  height: ${({ bodyHeight }) => bodyHeight};
+  width: ${({ bodyWidth }) => bodyWidth || '100%'};
+  height: ${({ bodyHeight }) => bodyHeight || 'auto'};
   margin-top: 6px;
   padding: 6px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;

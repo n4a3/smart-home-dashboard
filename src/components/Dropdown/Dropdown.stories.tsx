@@ -40,7 +40,7 @@ const renderBody = () => <Ascii>{asciiArt}</Ascii>;
 
 storiesOf('Components|Dropdown', module).add('Default', () => {
   return (
-    <Dropdown label="Dropdown" renderBody={renderBody}>
+    <Dropdown label="Dropdown" renderBody={renderBody} bodyWidth="auto">
       Please click me
     </Dropdown>
   );

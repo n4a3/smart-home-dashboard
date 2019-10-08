@@ -3,20 +3,18 @@ import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { PoseGroup } from 'react-pose';
+import { ReactComponent as Triangle } from '../../assets/triangle.svg';
 import BaseInput from '../BaseInput';
 import {
   DropdownBody,
   DropdownHeader,
+  IconWrapper,
   IDropdownBodyProps,
+  LabelWrapper,
   Wrapper
 } from './Dropdown.styles';
 
 interface IProps {
-  /**
-   * Label
-   * @default Not provided
-   */
-  label?: string;
   children: any;
   /**
    * You can use onClose callback for functions in renderBody
@@ -29,6 +27,15 @@ interface IProps {
    * }
    */
   renderBody: ((onClose: () => void) => any) | (() => any);
+  /**
+   * Label
+   * @default Not provided
+   */
+  label?: string;
+  /**
+   * You can provide a custom svg icon
+   */
+  icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
   /**
    * Function that will be called after opening
    */
@@ -50,17 +57,21 @@ class Dropdown extends Component<IDropdownProps> {
       label,
       children,
       renderBody,
-      bodyWidth = '100%',
-      bodyHeight = ''
+      bodyWidth,
+      bodyHeight,
+      icon: Icon = Triangle
     } = this.props;
 
     return (
       <BaseInput label={label}>
         <Wrapper>
-          <OutsideClickHandler
-            onOutsideClick={this.isOpened ? this.onClick : () => {}}
-          >
-            <DropdownHeader onClick={this.onClick}>{children}</DropdownHeader>
+          <OutsideClickHandler onOutsideClick={this.onClose}>
+            <DropdownHeader onClick={this.onClick}>
+              <LabelWrapper>{children}</LabelWrapper>
+              <IconWrapper>
+                <Icon />
+              </IconWrapper>
+            </DropdownHeader>
             <PoseGroup>
               {this.isOpened && (
                 <DropdownBody
@@ -79,14 +90,23 @@ class Dropdown extends Component<IDropdownProps> {
   }
 
   private onClick = () => {
-    const { onOpen = () => {}, onClose = () => {} } = this.props;
-    console.log('onClick');
     if (this.isOpened) {
-      onClose();
+      this.onClose();
     } else {
-      onOpen();
+      this.onOpen();
     }
-    this.isOpened = !this.isOpened;
+  };
+
+  private onClose = () => {
+    const { onClose = () => null } = this.props;
+    this.isOpened = false;
+    onClose();
+  };
+
+  private onOpen = () => {
+    const { onOpen = () => null } = this.props;
+    this.isOpened = true;
+    onOpen();
   };
 }
 

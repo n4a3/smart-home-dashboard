@@ -20,6 +20,9 @@ export const Item = styled.li<IItemProps>`
   cursor: pointer;
   background-color: ${({ isSelected }) => (isSelected ? '#1f8efa' : 'none')};
   color: ${({ isSelected }) => (isSelected ? '#ffffff' : '#98a7b9')};
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   &:hover,
   &:focus {
     background-color: #3e4e6c;

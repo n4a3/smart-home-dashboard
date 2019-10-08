@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import Dropdown from '../Dropdown';
+import { IDropdownBodyProps } from '../Dropdown/Dropdown.styles';
 import { Item, List } from './Select.styles';
 
-interface ISelectProps {
+interface IProps {
   items: string[];
   onSelect: (index: number) => void;
-  label?: string;
   selected: number | null;
+  label?: string;
+  placeholder?: string;
+  showSelected?: boolean;
+  icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
 }
 
-class Select extends Component<ISelectProps> {
+type ISelectProps = IProps & IDropdownBodyProps;
+
+class Select extends Component<ISelectProps & IDropdownBodyProps> {
   private get renderBody() {
     const { items, onSelect, selected } = this.props;
 
@@ -31,10 +37,27 @@ class Select extends Component<ISelectProps> {
     );
   }
 
+  private get placeholder() {
+    const { showSelected, selected, placeholder, items } = this.props;
+
+    if (showSelected && selected !== null) {
+      return items[selected];
+    } else {
+      return placeholder || 'Select...';
+    }
+  }
+
   public render() {
+    const { label, icon, bodyWidth, bodyHeight } = this.props;
     return (
-      <Dropdown label={this.props.label} renderBody={this.renderBody}>
-        Choose...
+      <Dropdown
+        label={label}
+        renderBody={this.renderBody}
+        icon={icon}
+        bodyWidth={bodyWidth}
+        bodyHeight={bodyHeight}
+      >
+        {this.placeholder}
       </Dropdown>
     );
   }
