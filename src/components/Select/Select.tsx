@@ -1,7 +1,6 @@
-import React from 'react';
-import Dropdown from '../../Dropdown';
-import { Component } from 'react';
-import { List, Item } from './Select.styles';
+import React, { Component } from 'react';
+import Dropdown from '../Dropdown';
+import { Item, List } from './Select.styles';
 
 interface ISelectProps {
   items: string[];

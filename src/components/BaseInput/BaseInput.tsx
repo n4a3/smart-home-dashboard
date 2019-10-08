@@ -1,5 +1,5 @@
 import React from 'react';
-import { Label, Wrapper } from './baseStyle.styles';
+import { Label, Wrapper } from './BaseInput.styles';
 
 interface IBaseInputProps {
   children: any;

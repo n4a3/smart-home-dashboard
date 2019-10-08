@@ -6,12 +6,13 @@
     "tslint-config-prettier"
   ],
   "linterOptions": {
-    "exclude": [".storybook", "node_modules/**/*.ts"]
+    "exclude": [".storybook/*.ts", "node_modules/**/*.ts"]
   },
   "rules": {
     "prettier": [true, ".prettierrc"],
     "object-literal-sort-keys": false,
     "no-implicit-dependencies": false,
-    "no-submodule-imports": false
+    "no-submodule-imports": false,
+    "jsx-boolean-value": "never"
   }
 }

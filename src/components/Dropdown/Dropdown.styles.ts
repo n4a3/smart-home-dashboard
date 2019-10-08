@@ -1,6 +1,6 @@
 import posed from 'react-pose';
 import styled from 'styled-components';
-import { BaseStyled } from '../Inputs/base';
+import { BaseStyled } from '../BaseInput';
 
 export interface IDropdownBodyProps {
   /**

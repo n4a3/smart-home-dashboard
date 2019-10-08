@@ -1,9 +1,9 @@
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
-import { PoseGroup } from 'react-pose';
-import BaseInput from '../Inputs/base';
 import OutsideClickHandler from 'react-outside-click-handler';
+import { PoseGroup } from 'react-pose';
+import BaseInput from '../BaseInput';
 import {
   DropdownBody,
   DropdownHeader,
@@ -45,7 +45,7 @@ type IDropdownProps = IProps & IDropdownBodyProps;
 class Dropdown extends Component<IDropdownProps> {
   @observable
   private isOpened: boolean = false;
-  render() {
+  public render() {
     const {
       label,
       children,

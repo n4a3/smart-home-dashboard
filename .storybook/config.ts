@@ -1,24 +1,11 @@
-import {
-  addDecorator,
-  addParameters,
-  configure,
-  setAddon
-} from '@storybook/react';
-import JSXAddon, { jsxDecorator } from 'storybook-addon-jsx';
-import { withPropsTable } from 'storybook-addon-react-docgen';
+import { addParameters, configure } from '@storybook/react';
 import theme from './theme';
 
-addDecorator(withPropsTable);
-addDecorator(jsxDecorator);
-setAddon(JSXAddon);
 addParameters({
   options: {
     showPanel: true,
     panelPosition: 'right',
-    theme: theme
-  },
-  jsx: {
-    useBooleanShorthandSyntax: false
+    theme
   }
 });
 

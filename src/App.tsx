@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { TextInput } from './components/Inputs';
-import { observer } from 'mobx-react';
 import { observable } from 'mobx';
+import { observer } from 'mobx-react';
+import React, { Component } from 'react';
+import './App.css';
+import TextInput from './components/TextInput';
+import logo from './logo.svg';
 import { InputTypes } from './types';
 
 @observer

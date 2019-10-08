@@ -1,8 +1,7 @@
-import React, { FC } from 'react';
-import { TextInputStyled, Wrapper, Indicator } from './TextInput.styles';
-import { InputTypes } from '../../../types';
-import { IBaseStyledProps } from '../base/baseStyle.styles';
-import BaseInput from '../base';
+import React from 'react';
+import { InputTypes } from '../../types';
+import BaseInput, { IBaseStyledProps } from '../BaseInput';
+import { Indicator, TextInputStyled, Wrapper } from './TextInput.styles';
 
 interface IProps {
   value: string;
@@ -16,7 +15,7 @@ interface IProps {
 
 type ITextInputProps = IProps & IBaseStyledProps;
 
-const TextInput: FC<ITextInputProps> = ({
+const TextInput: React.FC<ITextInputProps> = ({
   value,
   onChange,
   required,

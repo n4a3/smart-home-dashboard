@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { BaseStyled } from '../base/baseStyle.styles';
+import { BaseStyled } from '../BaseInput';
 
 export const Wrapper = styled.div`
   position: relative;

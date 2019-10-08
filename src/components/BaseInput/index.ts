@@ -1,6 +1,6 @@
 import BaseInput from './BaseInput';
-import { IBaseStyledProps, BaseStyled } from './baseStyle.styles';
+import { BaseStyled, IBaseStyledProps } from './BaseInput.styles';
 
-export { BaseStyled };
 export type IBaseStyledProps = IBaseStyledProps;
+export { BaseStyled };
 export default BaseInput;
