@@ -41,6 +41,7 @@ class SelectStory extends Component {
           onSelect={this.onSelect}
           selected={this.selected}
         />
+        <Margin />
         <Select
           label="'Select' which shows selected item"
           items={this.items}
@@ -48,14 +49,16 @@ class SelectStory extends Component {
           selected={this.selected}
           showSelected
         />
+        <Margin />
         <Select
           label="'Select' with fixed width"
           items={this.items}
           onSelect={this.onSelect}
           selected={this.selected}
-          bodyWidth={200}
+          bodyWidth="200px"
           showSelected
         />
+        <Margin />
         <Select
           label="'Select' with custom icon and placeholder"
           items={this.days}
