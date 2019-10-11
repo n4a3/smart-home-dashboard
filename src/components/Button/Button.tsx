@@ -8,7 +8,7 @@ interface IButtonProps {
   circle?: boolean;
 }
 
-export const Button: React.FC<IButtonProps> = ({
+const Button: React.FC<IButtonProps> = ({
   children,
   onClick,
   badge,
@@ -20,3 +20,5 @@ export const Button: React.FC<IButtonProps> = ({
     </ButtonStyled>
   );
 };
+
+export default Button;

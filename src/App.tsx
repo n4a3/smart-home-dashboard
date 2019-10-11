@@ -2,9 +2,7 @@ import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import './App.css';
-import TextInput from './components/TextInput';
 import logo from './logo.svg';
-import { InputTypes } from './types';
 
 @observer
 class App extends Component {
@@ -12,6 +10,13 @@ class App extends Component {
   private inputValue: string = '';
   @observable
   private inputHasError: boolean | null = null;
+
+  private test = {
+    a: {
+      b: 1,
+      c: 2
+    }
+  };
 
   render() {
     return (
@@ -27,27 +32,12 @@ class App extends Component {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Learn React
+            Learn React {this.test.a.c}
           </a>
-          <TextInput
-            value={this.inputValue}
-            onChange={this.onInputChange}
-            hasError={this.inputHasError}
-            type={InputTypes.EMAIL}
-          />
         </header>
       </div>
     );
   }
-
-  private onInputChange = (event: React.FormEvent<HTMLInputElement>) => {
-    const {
-      value,
-      validity: { valid }
-    } = event.currentTarget;
-    this.inputValue = value;
-    this.inputHasError = !value ? null : valid ? false : true;
-  };
 }
 
 export default App;
