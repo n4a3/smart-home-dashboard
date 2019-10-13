@@ -10,10 +10,8 @@ export const BaseStyled = styled.div<IBaseStyledProps>`
   height: ${({ height }) => height || '32px'};
   box-sizing: border-box;
   background-color: #20293c;
-  color: #98a7b9;
   border-radius: 4px;
   padding: 8px 13px;
-  font-family: Roboto, Arial, Helvetica, sans-serif;
   font-size: 12px;
 `;
 
@@ -23,7 +21,6 @@ export const Label = styled.p<{ hasLabel?: boolean }>`
   margin: 0;
   padding: 0;
   color: #ffffff;
-  font-family: Roboto, Arial, Helvetica, sans-serif;
   font-size: 17px;
   font-weight: 300;
   ${({ hasLabel }) =>

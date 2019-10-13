@@ -14,12 +14,11 @@ export const Item = styled.li<IItemProps>`
   width: 100%;
   height: 32px;
   padding: 8px 13px;
-  font-family: Roboto, Arial, Helvetica, sans-serif;
   font-size: 12px;
   box-sizing: border-box;
   cursor: pointer;
   background-color: ${({ isSelected }) => (isSelected ? '#1f8efa' : 'none')};
-  color: ${({ isSelected }) => (isSelected ? '#ffffff' : '#98a7b9')};
+  color: ${({ isSelected }) => isSelected && '#ffffff'};
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

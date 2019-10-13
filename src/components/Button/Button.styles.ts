@@ -13,7 +13,6 @@ export const ButtonStyled = styled.button<IButtonStyledProps>`
   background-color: #1f8efa;
   border-radius: 2px;
   border: none;
-  font-family: Roboto, Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;

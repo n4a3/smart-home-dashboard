@@ -20,7 +20,6 @@ export const RadioStyled = styled.button`
   padding: 0;
   margin: 0;
   background: transparent;
-  color: #98a7b9;
   font-size: 12px;
   line-height: 12px;
   border: none;
