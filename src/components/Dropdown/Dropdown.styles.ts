@@ -1,5 +1,5 @@
 import posed from 'react-pose';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { BaseStyled } from '../BaseInput';
 
 export interface IDropdownBodyProps {
@@ -13,13 +13,21 @@ export interface IDropdownBodyProps {
   bodyHeight?: string;
 }
 
+export interface IIconWrapperProps {
+  /**
+   * Rotate icon?
+   */
+  isRotatable?: boolean;
+  isOpened: boolean;
+}
+
 const PosedDropdownBody = posed.div({
   enter: {
     y: 0,
     opacity: 1
   },
   exit: {
-    y: -50,
+    y: 25,
     opacity: 0
   }
 });
@@ -44,10 +52,16 @@ export const LabelWrapper = styled.div`
   text-overflow: ellipsis;
 `;
 
-export const IconWrapper = styled.div`
+export const IconWrapper = styled.div<IIconWrapperProps>`
   flex-shrink: 1;
   margin-right: -5px;
   margin-left: 8px;
+  ${({ isRotatable = true, isOpened }) =>
+    isRotatable &&
+    css`
+      transform: rotate(${isOpened ? '180deg' : '0deg'});
+      transition: transform 0.2s;
+    `}
 `;
 
 export const DropdownBody = styled(PosedDropdownBody)<IDropdownBodyProps>`

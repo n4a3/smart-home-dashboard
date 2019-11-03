@@ -38,10 +38,19 @@ const asciiArt = `  　　　　　　　　　　　　　　 　 ､＿
 
 const renderBody = () => <Ascii>{asciiArt}</Ascii>;
 
-storiesOf('Components|Dropdown', module).add('Default', () => {
-  return (
+storiesOf('Components|Dropdown', module)
+  .add('Default', () => (
     <Dropdown label="Dropdown" renderBody={renderBody} bodyWidth="auto">
       Please click me
     </Dropdown>
-  );
-});
+  ))
+  .add('W/o rotate', () => (
+    <Dropdown
+      label="Dropdown"
+      renderBody={renderBody}
+      bodyWidth="auto"
+      isRotatable={false}
+    >
+      Please click me
+    </Dropdown>
+  ));

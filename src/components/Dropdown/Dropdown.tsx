@@ -44,6 +44,7 @@ interface IProps {
    * Function that will be called after closing
    */
   onClose?: () => void;
+  isRotatable?: boolean;
 }
 
 type IDropdownProps = IProps & IDropdownBodyProps;
@@ -59,6 +60,7 @@ class Dropdown extends Component<IDropdownProps> {
       renderBody,
       bodyWidth,
       bodyHeight,
+      isRotatable,
       icon: Icon = Triangle
     } = this.props;
 
@@ -68,7 +70,7 @@ class Dropdown extends Component<IDropdownProps> {
           <OutsideClickHandler onOutsideClick={this.onClose}>
             <DropdownHeader onClick={this.onClick}>
               <LabelWrapper>{children}</LabelWrapper>
-              <IconWrapper>
+              <IconWrapper isOpened={this.isOpened} isRotatable={isRotatable}>
                 <Icon />
               </IconWrapper>
             </DropdownHeader>
