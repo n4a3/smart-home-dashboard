@@ -4,7 +4,11 @@ import {
   ModalWrapper,
   LayerOverlay,
   OverlayStyled,
-  PosedChildren
+  PosedChildren,
+  ModalTitle,
+  ModalHeader,
+  ModalCloseIconWrapper,
+  ModalBody
 } from './Modal.styles';
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import { clickable } from '../../hocs/clickable';
@@ -17,6 +21,7 @@ interface IModalProps {
   isOpened: boolean;
   onClose: () => void;
   children: any;
+  title?: string;
 }
 
 const ESC_KEY_CODE = 27;
@@ -38,7 +43,7 @@ class Modal extends Component<IModalProps> {
   }
 
   public render() {
-    const { children, isOpened: isOpenedExt, onClose } = this.props;
+    const { children, isOpened: isOpenedExt, onClose, title } = this.props;
     return (
       isOpenedExt && (
         <Portal>
@@ -49,8 +54,13 @@ class Modal extends Component<IModalProps> {
                 <PosedChildren key="PC">
                   <OutsideClickHandler onOutsideClick={this.onClose}>
                     <ModalWrapper>
-                      <ClickableCloseIcon onClick={this.onClose} />
-                      {children}
+                      <ModalHeader>
+                        <ModalTitle>{title}</ModalTitle>
+                        <ModalCloseIconWrapper>
+                          <ClickableCloseIcon onClick={this.onClose} />
+                        </ModalCloseIconWrapper>
+                      </ModalHeader>
+                      <ModalBody>{children}</ModalBody>
                     </ModalWrapper>
                   </OutsideClickHandler>
                 </PosedChildren>

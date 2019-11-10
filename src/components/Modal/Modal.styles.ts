@@ -59,8 +59,33 @@ export const LayerOverlay = styled.div`
 
 export const ModalWrapper = styled.div`
   background-color: #2f3b52;
+  min-width: 260px;
   box-shadow: 0 6px 13px rgba(21, 33, 56, 0.53);
   border-radius: 10px;
+`;
+
+export const ModalHeader = styled.div`
+  display: flex;
+  position: relative;
+  width: 100%;
   padding: 40px;
-  box-sizing: border-box;
+  padding-bottom: 0;
+  justify-content: space-between;
+`;
+
+export const ModalTitle = styled.h1`
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 300;
+  margin: 0;
+`;
+
+export const ModalCloseIconWrapper = styled.div`
+  position: absolute;
+  top: 8px;
+  right: 8px;
+`;
+
+export const ModalBody = styled.div`
+  padding: 40px;
 `;
