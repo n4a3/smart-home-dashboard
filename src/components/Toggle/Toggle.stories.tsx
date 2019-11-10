@@ -1,5 +1,21 @@
 import { storiesOf } from '@storybook/react';
-import React from 'react';
+import React, { Component } from 'react';
 import Toggle from './Toggle';
+import { observer } from 'mobx-react';
+import { observable } from 'mobx';
 
-storiesOf('Components|Toggle', module).add('Default', () => <Toggle />);
+@observer
+class ToggleStory extends Component {
+  @observable
+  private checked: boolean = false;
+
+  public render() {
+    return <Toggle checked={this.checked} onClick={this.toggle} />;
+  }
+
+  private toggle = () => {
+    this.checked = !this.checked;
+  };
+}
+
+storiesOf('Components|Toggle', module).add('Default', () => <ToggleStory />);
