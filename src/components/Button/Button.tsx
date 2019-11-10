@@ -1,21 +1,20 @@
 import React from 'react';
 import { ButtonStyled } from './Button.styles';
+import { ButtonSkins } from '../../types/ButtonSkins';
 
 interface IButtonProps {
   onClick: () => void;
   children: any;
-  badge?: boolean;
-  circle?: boolean;
+  skin?: ButtonSkins;
 }
 
 const Button: React.FC<IButtonProps> = ({
   children,
   onClick,
-  badge,
-  circle
+  skin = ButtonSkins.DEFAULT
 }) => {
   return (
-    <ButtonStyled badge={badge} circle={circle} onClick={onClick}>
+    <ButtonStyled skin={skin} onClick={onClick}>
       {children}
     </ButtonStyled>
   );
