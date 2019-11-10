@@ -21,7 +21,6 @@ export const ProgressStyled = styled.div<ProgressStyled>`
   padding: 2px;
   border-radius: 5px;
   background-color: #20293c;
-  box-sizing: border-box;
   &::before {
     display: block;
     content: '';

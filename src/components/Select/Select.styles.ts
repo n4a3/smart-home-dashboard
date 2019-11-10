@@ -15,7 +15,6 @@ export const Item = styled.li<IItemProps>`
   height: 32px;
   padding: 8px 13px;
   font-size: 12px;
-  box-sizing: border-box;
   cursor: pointer;
   background-color: ${({ isSelected }) => (isSelected ? '#1f8efa' : 'none')};
   color: ${({ isSelected }) => isSelected && '#ffffff'};

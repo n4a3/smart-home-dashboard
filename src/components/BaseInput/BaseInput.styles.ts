@@ -8,7 +8,6 @@ export interface IBaseStyledProps {
 export const BaseStyled = styled.div<IBaseStyledProps>`
   width: ${({ width }) => width || '327px'};
   height: ${({ height }) => height || '32px'};
-  box-sizing: border-box;
   background-color: #20293c;
   border-radius: 4px;
   padding: 8px 13px;
