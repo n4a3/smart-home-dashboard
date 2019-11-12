@@ -3,10 +3,12 @@ import { ButtonSkins } from '../../types/ButtonSkins';
 
 interface IButtonStyledProps {
   skin: ButtonSkins;
+  width?: string;
 }
 
 export const ButtonStyled = styled.button<IButtonStyledProps>`
   min-width: 82px;
+  width: ${({ width }) => width || 'auto'};
   height: 33px;
   margin: 0;
   padding: 0 8px;
@@ -36,8 +38,12 @@ export const ButtonStyled = styled.button<IButtonStyledProps>`
           width: 42px;
           height: 42px;
           border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: unset;
         `;
-      case ButtonSkins.LINK:
+      case ButtonSkins.TRANSPARENT:
         return css`
           background-color: transparent;
         `;

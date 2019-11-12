@@ -20,7 +20,7 @@ storiesOf('Components|Button', module)
     </Button>
   ))
   .add('Link', () => (
-    <Button skin={ButtonSkins.LINK} onClick={action('button-click')}>
+    <Button skin={ButtonSkins.TRANSPARENT} onClick={action('button-click')}>
       Text
     </Button>
   ));

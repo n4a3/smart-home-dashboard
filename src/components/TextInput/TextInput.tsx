@@ -28,7 +28,7 @@ const TextInput: React.FC<ITextInputProps> = ({
 }) => {
   return (
     <BaseInput label={label}>
-      <Wrapper>
+      <Wrapper width={width} height={height}>
         <TextInputStyled
           value={value}
           onChange={onChange}

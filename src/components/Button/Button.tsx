@@ -6,15 +6,17 @@ interface IButtonProps {
   onClick: () => void;
   children: any;
   skin?: ButtonSkins;
+  width?: string;
 }
 
 const Button: React.FC<IButtonProps> = ({
   children,
   onClick,
-  skin = ButtonSkins.DEFAULT
+  skin = ButtonSkins.DEFAULT,
+  width
 }) => {
   return (
-    <ButtonStyled skin={skin} onClick={onClick}>
+    <ButtonStyled skin={skin} onClick={onClick} width={width}>
       {children}
     </ButtonStyled>
   );
