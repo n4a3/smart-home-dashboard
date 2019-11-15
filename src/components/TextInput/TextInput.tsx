@@ -11,9 +11,11 @@ interface IProps {
   type?: InputTypes;
   pattern?: string;
   label?: string;
+  onFocus?: (event?: React.FormEvent<HTMLInputElement>) => void;
+  onBlur?: (event?: React.FormEvent<HTMLInputElement>) => void;
 }
 
-type ITextInputProps = IProps & IBaseStyledProps;
+export type ITextInputProps = IProps & IBaseStyledProps;
 
 const TextInput: React.FC<ITextInputProps> = ({
   value,
@@ -24,7 +26,9 @@ const TextInput: React.FC<ITextInputProps> = ({
   pattern,
   width,
   height,
-  label
+  label,
+  onFocus,
+  onBlur
 }) => {
   return (
     <BaseInput label={label}>
@@ -38,6 +42,8 @@ const TextInput: React.FC<ITextInputProps> = ({
           pattern={pattern}
           width={width}
           height={height}
+          onFocus={onFocus}
+          onBlur={onBlur}
         />
         <Indicator hasError={hasError} />
       </Wrapper>
