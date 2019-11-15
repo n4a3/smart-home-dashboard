@@ -59,25 +59,3 @@ export const LetterCircle = styled.span`
   top: 23px;
   right: 3px;
 `;
-
-// ------------------Right side------------------
-
-export const RightSide = styled.div`
-  padding: 55px;
-  display: flex;
-  flex: 0.3;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const RightContentWrapper = styled.div`
-  flex: 0.8;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const Heading = styled.h1`
-  font-size: 30px;
-  font-weight: 300;
-  text-align: center;
-`;
