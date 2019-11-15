@@ -11,8 +11,8 @@ interface IProps {
   type?: InputTypes;
   pattern?: string;
   label?: string;
-  onFocus?: (event?: React.FormEvent<HTMLInputElement>) => void;
-  onBlur?: (event?: React.FormEvent<HTMLInputElement>) => void;
+  onFocus?: (event: React.FormEvent<HTMLInputElement>) => void | (() => void);
+  onBlur?: (event: React.FormEvent<HTMLInputElement>) => void | (() => void);
 }
 
 export type ITextInputProps = IProps & IBaseStyledProps;
