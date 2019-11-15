@@ -2,6 +2,7 @@
   "name": "smart-home-dashboard",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://n4a3.github.io/smart-home",
   "dependencies": {
     "@types/jest": "24.0.21",
     "@types/node": "^12.12.5",
