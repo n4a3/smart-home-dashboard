@@ -1,11 +1,12 @@
 import React from 'react';
-import { LinkStyled } from './Link.styles';
+import { LinkInternalStyled, LinkExternalStyled } from './Link.styles';
 import { LinkSkins } from '../../types/LinkSkins';
 import { LinkProps } from 'react-router-dom';
 
 interface IProps {
   skin?: LinkSkins;
   children: any;
+  to: string;
 }
 
 type ILinkProps = IProps & LinkProps;
@@ -13,12 +14,17 @@ type ILinkProps = IProps & LinkProps;
 const Link: React.FC<ILinkProps> = ({
   skin = LinkSkins.PRIMARY,
   children,
+  to,
   ...props
 }) => {
-  return (
-    <LinkStyled skin={skin} {...props}>
+  return to.indexOf('://') !== -1 ? (
+    <LinkExternalStyled skin={skin} href={to} {...props}>
       {children}
-    </LinkStyled>
+    </LinkExternalStyled>
+  ) : (
+    <LinkInternalStyled skin={skin} to={to} {...props}>
+      {children}
+    </LinkInternalStyled>
   );
 };
 

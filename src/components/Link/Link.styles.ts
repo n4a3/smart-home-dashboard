@@ -6,21 +6,37 @@ interface ILinkStyledProps {
   skin: LinkSkins;
 }
 
-export const LinkStyled = styled(Link)<ILinkStyledProps>`
+const sharedStyles = css`
   font-size: 12px;
   text-decoration: none;
-  ${({ skin }) => {
-    switch (skin) {
-      case LinkSkins.PRIMARY:
-        return css`
-          color: #1f8efa;
-          font-weight: 700;
-        `;
-      case LinkSkins.SECONDARY:
-        return css`
-          color: #98a7b9;
-          font-weight: 400;
-        `;
-    }
-  }}
+  display: flex;
+  align-items: center;
+  width: fit-content;
+`;
+
+export const getStyles = (skin: LinkSkins) => {
+  switch (skin) {
+    case LinkSkins.PRIMARY:
+      return css`
+        color: #1f8efa;
+        font-weight: 700;
+        ${sharedStyles}
+      `;
+    case LinkSkins.SECONDARY:
+      return css`
+        color: #98a7b9;
+        font-weight: 400;
+        ${sharedStyles}
+      `;
+  }
+};
+
+export const LinkInternalStyled = styled(Link)<ILinkStyledProps>`
+  ${({ skin }) => getStyles(skin)}
+  ${sharedStyles}
+`;
+
+export const LinkExternalStyled = styled.a<ILinkStyledProps>`
+  ${({ skin }) => getStyles(skin)}
+  ${sharedStyles}
 `;
