@@ -1,6 +1,6 @@
 import React from 'react';
 import { ButtonStyled } from './Button.styles';
-import { ButtonSkins } from '../../types/ButtonSkins';
+import { ButtonSkins } from '../../types';
 
 interface IButtonProps {
   children: any;

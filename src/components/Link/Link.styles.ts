@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
-import { LinkSkins } from '../../types/LinkSkins';
+import { LinkSkins } from '../../types';
 
 interface ILinkStyledProps {
   skin: LinkSkins;

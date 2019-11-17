@@ -9,8 +9,7 @@ import Link from '../../../components/Link';
 import TextInput, {
   ITextInputProps
 } from '../../../components/TextInput/TextInput';
-import { InputTypes } from '../../../types';
-import { LinkSkins } from '../../../types/LinkSkins';
+import { InputTypes, LinkSkins } from '../../../types';
 import {
   BottomWrapper,
   CenterWrapper,

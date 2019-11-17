@@ -5,7 +5,7 @@ import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { ReactComponent as PlayIcon } from '../../assets/play.svg';
 import Button from '../../components/Button';
 import Container from '../../components/Container';
-import { ButtonSkins } from '../../types/ButtonSkins';
+import { ButtonSkins } from '../../types';
 import {
   InlineRelativeWrapper,
   LeftContentWrapper,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { LinkInternalStyled, LinkExternalStyled } from './Link.styles';
-import { LinkSkins } from '../../types/LinkSkins';
+import { LinkSkins } from '../../types';
 import { LinkProps } from 'react-router-dom';
 
 interface IProps {

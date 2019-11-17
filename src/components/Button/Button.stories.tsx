@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import React from 'react';
 import { ReactComponent as Plus } from '../../assets/plus.svg';
 import Button from './Button';
-import { ButtonSkins } from '../../types/ButtonSkins';
+import { ButtonSkins } from '../../types';
 
 storiesOf('Components|Button', module)
   .add('Default', () => (

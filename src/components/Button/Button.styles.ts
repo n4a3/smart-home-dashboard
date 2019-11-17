@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { ButtonSkins } from '../../types/ButtonSkins';
+import { ButtonSkins } from '../../types';
 
 interface IButtonStyledProps {
   skin: ButtonSkins;
@@ -33,15 +33,17 @@ export const ButtonStyled = styled.button<IButtonStyledProps>`
           border-radius: 50px;
         `;
       case ButtonSkins.CIRCLE:
+      case ButtonSkins.ICON:
         return css`
           min-width: unset;
           width: 42px;
           height: 42px;
-          border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           padding: unset;
+          ${skin === ButtonSkins.CIRCLE && 'border-radius: 50%'};
+          ${skin === ButtonSkins.ICON && 'background-color: transparent'};
         `;
       case ButtonSkins.TRANSPARENT:
         return css`
