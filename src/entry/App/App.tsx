@@ -1,13 +1,14 @@
+import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import {
   HashRouter as Router,
-  Switch,
+  Redirect,
   Route,
-  Redirect
+  Switch
 } from 'react-router-dom';
 import { rootStore } from '../../stores/RootStore';
-import { observer } from 'mobx-react';
 import Auth from '../../views/Auth';
+import Dashboard from '../../views/Dashboard';
 import { GlobalStyle } from './App.styles';
 
 @observer
@@ -25,6 +26,7 @@ class App extends Component {
             )}
           </Route>
           <Route path="/login" component={Auth} />
+          <Route path="/dashboard" component={Dashboard} />
         </Switch>
       </Router>
     );

@@ -11,8 +11,7 @@ export const Wrapper = styled.div`
 
 export const IconWrapper = styled.div`
   margin-right: 6px;
-  width: fit-content;
-  height: fit-content;
+  display: flex;
 `;
 
 export const ProgressStyled = styled.div<ProgressStyled>`

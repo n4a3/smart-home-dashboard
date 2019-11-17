@@ -1,6 +1,7 @@
 import posed from 'react-pose';
 import styled, { css } from 'styled-components';
 import { BaseStyled } from '../BaseInput';
+import { DropdownSkins } from '../../types';
 
 export interface IDropdownBodyProps {
   /**
@@ -11,6 +12,7 @@ export interface IDropdownBodyProps {
    * Custom height for dropdown body
    */
   bodyHeight?: string;
+  skin?: DropdownSkins;
 }
 
 export interface IIconWrapperProps {
@@ -69,11 +71,16 @@ export const DropdownBody = styled(PosedDropdownBody)<IDropdownBodyProps>`
   z-index: 1;
   background-color: #20293c;
   border-radius: 4px;
-  width: ${({ bodyWidth }) => bodyWidth || '100%'};
+  width: ${({ bodyWidth, skin }) =>
+    bodyWidth || skin === DropdownSkins.DEFAULT ? '100%' : 'auto'};
   height: ${({ bodyHeight }) => bodyHeight || 'auto'};
   margin-top: 6px;
   padding: 6px 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  ${({ skin }) =>
+    skin === DropdownSkins.DEFAULT &&
+    css`
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    `}
 `;
