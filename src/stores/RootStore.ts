@@ -4,6 +4,11 @@ class RootStore {
   @observable
   private isAuthorized = false;
 
+  public get authStatus() {
+    this.getAuthorizedFromLS();
+    return this.isAuthorized;
+  }
+
   public getAuthorizedFromLS = () => {
     const key = localStorage.getItem('authorized');
     const value: boolean = key !== null ? JSON.parse(key) : false;
@@ -19,11 +24,6 @@ class RootStore {
 
   public setAuthorizedToLS = () => {
     localStorage.setItem('authorized', JSON.stringify(this.isAuthorized));
-  };
-
-  public getAuthStatus = () => {
-    this.getAuthorizedFromLS();
-    return this.isAuthorized;
   };
 }
 
