@@ -5,11 +5,17 @@ interface ITabsProps {
   items: string[];
   selected: number | null;
   onSelect: (index: number) => void;
+  width?: string | number;
 }
 
-const Tabs: React.FC<ITabsProps> = ({ items, selected = null, onSelect }) => {
+const Tabs: React.FC<ITabsProps> = ({
+  items,
+  selected = null,
+  onSelect,
+  width
+}) => {
   return (
-    <List>
+    <List width={width}>
       {items.map((item, index) => {
         const onClick = () => onSelect(index);
         const isSelected = selected === index;

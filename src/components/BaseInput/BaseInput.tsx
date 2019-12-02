@@ -4,10 +4,9 @@ import { Label, Wrapper } from './BaseInput.styles';
 interface IBaseInputProps {
   children: any;
   label?: string;
-  width?: string;
 }
 
-const BaseInput: React.FC<IBaseInputProps> = ({ children, label, width }) => {
+const BaseInput: React.FC<IBaseInputProps> = ({ children, label }) => {
   const hasLabel = !!label;
   return (
     <Wrapper>

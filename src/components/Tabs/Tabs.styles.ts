@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
+import { getProp } from '../../utils/getProp';
 
 interface IListProps {
-  width?: string;
+  width?: string | number;
 }
 
 interface IItemProps {
@@ -14,7 +15,7 @@ export const List = styled.ul<IListProps>`
   border-radius: 2px;
   background-color: #242e42;
   list-style: none;
-  width: ${({ width }) => width || 'fit-content'};
+  width: ${({ width = 'fit-content' }) => getProp(width)};
   color: #657d95;
   font-size: 12px;
   font-weight: 500;

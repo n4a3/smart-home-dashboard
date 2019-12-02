@@ -1,13 +1,14 @@
 import styled, { css } from 'styled-components';
+import { getProp } from '../../utils/getProp';
 
 export interface IBaseStyledProps {
-  width?: string;
-  height?: string;
+  width?: string | number;
+  height?: string | number;
 }
 
 export const BaseStyled = styled.div<IBaseStyledProps>`
-  width: ${({ width }) => width || '327px'};
-  height: ${({ height }) => height || '32px'};
+  width: ${({ width = 328 }) => getProp(width)};
+  height: ${({ height = 32 }) => getProp(height)};
   background-color: #20293c;
   border-radius: 4px;
   padding: 8px 13px;

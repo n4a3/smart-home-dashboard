@@ -1,14 +1,15 @@
 import styled, { css } from 'styled-components';
 import { ButtonSkins } from '../../types';
+import { getProp } from '../../utils/getProp';
 
 interface IButtonStyledProps {
   skin: ButtonSkins;
-  width?: string;
+  width?: string | number;
 }
 
 export const ButtonStyled = styled.button<IButtonStyledProps>`
   min-width: 82px;
-  width: ${({ width }) => width || 'auto'};
+  width: ${({ width = 'auto' }) => getProp(width)};
   height: 33px;
   margin: 0;
   padding: 0 8px;

@@ -1,11 +1,12 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { BaseStyled, IBaseStyledProps } from '../BaseInput';
+import { getProp } from '../../utils/getProp';
 
 export const Wrapper = styled.div<IBaseStyledProps>`
   position: relative;
-  width: ${({ width }) => width || 'fit-content'};
-  height: ${({ height }) => height || 'fit-content'};
+  width: ${({ width = 'fit-content' }) => getProp(width)};
+  height: ${({ height = 'fit-content' }) => getProp(height)};
 `;
 
 export const TextInputStyled = styled(({ hasError, ...props }) => (

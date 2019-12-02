@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { getProp } from '../../utils/getProp';
 
 interface IWrapperProps {
   marginLeft?: string | number;
@@ -21,7 +22,3 @@ export const Wrapper = styled.div<IWrapperProps>`
   padding-top: ${({ paddingTop = 'unset' }) => getProp(paddingTop)};
   padding-bottom: ${({ paddingBottom = 'unset' }) => getProp(paddingBottom)};
 `;
-
-const getProp = (prop: string | number) => {
-  return isNaN(+prop) ? prop : `${prop}px`;
-};
