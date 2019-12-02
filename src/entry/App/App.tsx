@@ -13,13 +13,20 @@ import { GlobalStyle } from './App.styles';
 
 @observer
 class App extends Component {
+  private root = document.getElementById('root')!;
+
+  public componentDidMount() {
+    this.root.addEventListener('mousedown', this.setMouseInput);
+    this.root.addEventListener('keydown', this.setKeyboardInput);
+  }
+
   public render() {
     return (
       <Router>
         <GlobalStyle />
         <Switch>
           <Route path="/" exact>
-            {rootStore.getAuthStatus() ? (
+            {rootStore.authStatus ? (
               <Redirect to="/dashboard" />
             ) : (
               <Redirect to="/login" />
@@ -31,6 +38,18 @@ class App extends Component {
       </Router>
     );
   }
+
+  private setMouseInput = () => {
+    this.root.classList.remove('key-input');
+    this.root.removeEventListener('mousedown', this.setMouseInput);
+    this.root.addEventListener('keydown', this.setKeyboardInput);
+  };
+
+  private setKeyboardInput = () => {
+    this.root.classList.add('key-input');
+    this.root.removeEventListener('keydown', this.setKeyboardInput);
+    this.root.addEventListener('mousedown', this.setMouseInput);
+  };
 }
 
 export default App;
