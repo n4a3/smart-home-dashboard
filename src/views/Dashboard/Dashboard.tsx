@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { observable } from 'mobx';
 import Header from './Header';
 import { Wrapper } from './Dashboard.styles';
+import Body from './Body';
 
 interface IDashboardProps {}
 
@@ -12,6 +12,7 @@ class Dashboard extends Component<IDashboardProps> {
     return (
       <Wrapper>
         <Header />
+        <Body />
       </Wrapper>
     );
   }

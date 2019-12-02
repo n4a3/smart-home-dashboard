@@ -5,4 +5,5 @@ export const Wrapper = styled.div`
   height: 100vh;
   background-color: #242e42;
   display: flex;
+  flex-direction: column;
 `;
