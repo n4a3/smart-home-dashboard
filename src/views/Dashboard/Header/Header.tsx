@@ -9,6 +9,9 @@ import {
 import { ReactComponent as Logo } from '../../../assets/logo.svg';
 import { ReactComponent as Menu } from '../../../assets/menu.svg';
 import { ReactComponent as Storage } from '../../../assets/storage.svg';
+import { ReactComponent as Help } from '../../../assets/help.svg';
+import { ReactComponent as Email } from '../../../assets/email.svg';
+import { ReactComponent as Notification } from '../../../assets/notification.svg';
 import Link from '../../../components/Link';
 import Button from '../../../components/Button';
 import { ButtonSkins, DropdownSkins } from '../../../types';
@@ -39,29 +42,21 @@ class Header extends Component<IHeaderProps> {
         <HeaderSection>
           <Progress percent={60} icon={Storage} />
           <Container marginRight={56} />
-          <Dropdown
-            skin={DropdownSkins.FLAT}
-            renderBody={() => 'testtesttesttesttesttest'}
-          >
-            test
+          <Dropdown skin={DropdownSkins.FLAT} renderBody={() => 'dsdad'}>
+            <Help />
+          </Dropdown>
+          <Dropdown skin={DropdownSkins.FLAT} renderBody={() => 'asdasdd'}>
+            <Email />
           </Dropdown>
           <Dropdown
             skin={DropdownSkins.FLAT}
-            renderBody={() => 'testtesttesttesttesttest'}
+            bodyWidth={272}
+            renderBody={() => 'asdsadad'}
           >
-            test
+            <Notification />
           </Dropdown>
-          <Dropdown
-            skin={DropdownSkins.FLAT}
-            renderBody={() => 'testtesttesttesttesttest'}
-          >
-            test
-          </Dropdown>
-          <Dropdown
-            skin={DropdownSkins.FLAT}
-            renderBody={() => 'testtesttesttesttesttest'}
-          >
-            test
+          <Dropdown renderBody={() => 'aaaa'} headerWidth="auto">
+            Username
           </Dropdown>
         </HeaderSection>
       </HeaderWrapper>

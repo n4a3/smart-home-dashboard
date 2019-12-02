@@ -5,7 +5,8 @@ const border = '1px solid #20293c';
 export const HeaderWrapper = styled.header`
   width: 100%;
   height: 66px;
-  padding: 0 24px;
+  padding-left: 24px;
+  padding-right: 48px;
   display: flex;
   justify-content: space-between;
   align-items: center;
