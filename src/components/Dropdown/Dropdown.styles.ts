@@ -2,16 +2,17 @@ import posed from 'react-pose';
 import styled, { css } from 'styled-components';
 import { BaseStyled } from '../BaseInput';
 import { DropdownSkins } from '../../types';
+import { getProp } from '../../utils/getProp';
 
 export interface IDropdownBodyProps {
   /**
    * Custom width for dropdown body
    */
-  bodyWidth?: string;
+  bodyWidth?: string | number;
   /**
    * Custom height for dropdown body
    */
-  bodyHeight?: string;
+  bodyHeight?: string | number;
   skin?: DropdownSkins;
 }
 
@@ -45,6 +46,7 @@ export const DropdownHeader = styled(BaseStyled)`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: none;
 `;
 
 export const LabelWrapper = styled.div`
@@ -61,7 +63,8 @@ export const IconWrapper = styled.div<IIconWrapperProps>`
   ${({ isRotatable = true, isOpened }) =>
     isRotatable &&
     css`
-      transform: rotate(${isOpened ? '180deg' : '0deg'});
+      transform: rotate(${isOpened ? '180deg' : '0deg'})
+        translateY(${isOpened ? '0' : '-2px'});
       transition: transform 0.2s;
     `}
 `;
@@ -69,18 +72,52 @@ export const IconWrapper = styled.div<IIconWrapperProps>`
 export const DropdownBody = styled(PosedDropdownBody)<IDropdownBodyProps>`
   position: absolute;
   z-index: 1;
-  background-color: #20293c;
+  margin-top: 8px;
   border-radius: 4px;
-  width: ${({ bodyWidth, skin }) =>
-    bodyWidth || skin === DropdownSkins.DEFAULT ? '100%' : 'auto'};
-  height: ${({ bodyHeight }) => bodyHeight || 'auto'};
-  margin-top: 6px;
-  padding: 6px 0;
-  ${({ skin }) =>
-    skin === DropdownSkins.DEFAULT &&
-    css`
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    `}
+  height: ${({ bodyHeight = 'auto' }) => getProp(bodyHeight)};
+  ${({ skin, bodyWidth }) => {
+    switch (skin) {
+      case DropdownSkins.DEFAULT:
+        return css`
+          background-color: #20293c;
+          padding: 6px 0;
+          width: ${getProp(bodyWidth) || '100%'};
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        `;
+
+      case DropdownSkins.FLAT:
+        return css`
+          background-color: #2f3b52;
+          padding-top: 4px;
+          top: 100%;
+          width: ${getProp(bodyWidth) || 'auto'};
+
+          &::before {
+            display: block;
+            content: '';
+            width: 18px;
+            height: 18px;
+            background-color: #2f3b52;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -14px) rotate(45deg);
+            z-index: -1;
+          }
+        `;
+    }
+  }}
+`;
+
+export const JustifyWrapper = styled.div<{ skin?: DropdownSkins }>`
+  ${({ skin }) => {
+    switch (skin) {
+      case DropdownSkins.FLAT:
+        return css`
+          display: flex;
+          justify-content: center;
+        `;
+    }
+  }}
 `;

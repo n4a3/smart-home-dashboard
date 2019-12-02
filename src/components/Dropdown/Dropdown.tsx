@@ -1,4 +1,4 @@
-import { observable, action, computed } from 'mobx';
+import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React, { Component, Fragment } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
@@ -11,7 +11,8 @@ import {
   IconWrapper,
   IDropdownBodyProps,
   LabelWrapper,
-  Wrapper
+  Wrapper,
+  JustifyWrapper
 } from './Dropdown.styles';
 import { DropdownSkins, ButtonSkins } from '../../types';
 import Button from '../Button';
@@ -46,6 +47,7 @@ interface IProps {
    * Function that will be called after closing
    */
   onClose?: () => void;
+  headerWidth?: string | number;
   isRotatable?: boolean;
   skin?: DropdownSkins;
   flatButtonSkin?: ButtonSkins;
@@ -57,31 +59,14 @@ type IDropdownProps = IProps & IDropdownBodyProps;
 class Dropdown extends Component<IDropdownProps> {
   @observable
   private isOpened: boolean = false;
-  @observable
-  private bodyPos: {
-    left: number | null;
-    right: number | null;
-  } = {
-    left: null,
-    right: null
-  };
-
-  @computed
-  private get bodyStyles() {
-    const { left, right } = this.bodyPos;
-
-    if (right) {
-      return { right };
-    } else {
-      return { left };
-    }
-  }
+  private root = document.getElementById('root')!;
 
   public render() {
     const {
       label,
       children,
       renderBody,
+      headerWidth,
       bodyWidth,
       bodyHeight,
       isRotatable,
@@ -97,32 +82,39 @@ class Dropdown extends Component<IDropdownProps> {
       <Base {...props}>
         <Wrapper>
           <OutsideClickHandler onOutsideClick={this.onClose}>
-            {skin === DropdownSkins.DEFAULT ? (
-              <DropdownHeader onClick={this.onClick}>
-                <LabelWrapper>{children}</LabelWrapper>
-                <IconWrapper isOpened={this.isOpened} isRotatable={isRotatable}>
-                  <Icon />
-                </IconWrapper>
-              </DropdownHeader>
-            ) : (
-              <Button onClick={this.onClick} skin={flatButtonSkin}>
-                {children}
-              </Button>
-            )}
-            <PoseGroup>
-              {this.isOpened && (
-                <DropdownBody
-                  key="drp-body"
-                  bodyWidth={bodyWidth}
-                  bodyHeight={bodyHeight}
-                  skin={skin}
-                  ref={this.checkPos}
-                  style={this.bodyStyles}
+            <JustifyWrapper skin={skin}>
+              {skin === DropdownSkins.DEFAULT ? (
+                <DropdownHeader
+                  as="button"
+                  onClick={this.onClick}
+                  width={headerWidth}
                 >
-                  {renderBody(this.onClick)}
-                </DropdownBody>
+                  <LabelWrapper>{children}</LabelWrapper>
+                  <IconWrapper
+                    isOpened={this.isOpened}
+                    isRotatable={isRotatable}
+                  >
+                    <Icon />
+                  </IconWrapper>
+                </DropdownHeader>
+              ) : (
+                <Button onClick={this.onClick} skin={flatButtonSkin}>
+                  {children}
+                </Button>
               )}
-            </PoseGroup>
+              <PoseGroup>
+                {this.isOpened && (
+                  <DropdownBody
+                    key="drp-body"
+                    bodyWidth={bodyWidth}
+                    bodyHeight={bodyHeight}
+                    skin={skin}
+                  >
+                    {renderBody(this.onClick)}
+                  </DropdownBody>
+                )}
+              </PoseGroup>
+            </JustifyWrapper>
           </OutsideClickHandler>
         </Wrapper>
       </Base>
@@ -130,39 +122,25 @@ class Dropdown extends Component<IDropdownProps> {
   }
 
   private onClick = () => {
-    if (this.isOpened) {
-      this.onClose();
-    } else {
-      this.onOpen();
-    }
+    this.isOpened ? this.onClose() : this.onOpen();
   };
 
   private onClose = () => {
     const { onClose = () => null } = this.props;
     this.isOpened = false;
     onClose();
+    this.root.removeEventListener('keydown', this.closeOnKeyDown);
   };
 
   private onOpen = () => {
     const { onOpen = () => null } = this.props;
     this.isOpened = true;
     onOpen();
+    this.root.addEventListener('keydown', this.closeOnKeyDown);
   };
 
-  @action
-  private checkPos = (ref: Element) => {
-    if (!this.isOpened) {
-      return;
-    }
-
-    const root = document.getElementById('root')!;
-    const el = ref.getBoundingClientRect();
-
-    if (el.right >= root.clientWidth) {
-      this.bodyPos.right = 0;
-    } else {
-      this.bodyPos.left = -el.width / 2 + el.width / 8;
-    }
+  private closeOnKeyDown = (event: KeyboardEvent) => {
+    event.keyCode === 9 && this.onClose();
   };
 }
 
