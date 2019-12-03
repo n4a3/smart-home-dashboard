@@ -26,7 +26,7 @@ class App extends Component {
         <GlobalStyle />
         <Switch>
           <Route path="/" exact>
-            {rootStore.authStatus ? (
+            {rootStore.authStore.authStatus ? (
               <Redirect to="/dashboard" />
             ) : (
               <Redirect to="/login" />

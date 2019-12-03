@@ -1,30 +1,14 @@
-import { observable } from 'mobx';
+import DashboardStore from './DashboardStore';
+import { AuthStore } from './AuthStore';
 
-class RootStore {
-  @observable
-  private isAuthorized = false;
+export class RootStore {
+  readonly dashboardStore: DashboardStore;
+  readonly authStore: AuthStore;
 
-  public get authStatus() {
-    this.getAuthorizedFromLS();
-    return this.isAuthorized;
+  public constructor() {
+    this.authStore = new AuthStore(this);
+    this.dashboardStore = new DashboardStore(this);
   }
-
-  public getAuthorizedFromLS = () => {
-    const key = localStorage.getItem('authorized');
-    const value: boolean = key !== null ? JSON.parse(key) : false;
-
-    if (value === true || value === false) {
-      this.isAuthorized = value;
-    } else {
-      this.isAuthorized = false;
-    }
-
-    this.setAuthorizedToLS();
-  };
-
-  public setAuthorizedToLS = () => {
-    localStorage.setItem('authorized', JSON.stringify(this.isAuthorized));
-  };
 }
 
 export const rootStore = new RootStore();
