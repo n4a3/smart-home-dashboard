@@ -18,14 +18,11 @@ import { ButtonSkins, DropdownSkins } from '../../../types';
 import Progress from '../../../components/Progress';
 import Container from '../../../components/Container';
 import Dropdown from '../../../components/Dropdown';
+import { rootStore } from '../../../stores/RootStore';
 
 interface IHeaderProps {}
 
-@observer
 class Header extends Component<IHeaderProps> {
-  @observable
-  private isNavOpened = true;
-
   public render() {
     return (
       <HeaderWrapper>
@@ -34,7 +31,10 @@ class Header extends Component<IHeaderProps> {
             <Logo />
           </Link>
           <ButtonMenuWrapper>
-            <Button skin={ButtonSkins.ICON} onClick={this.onToggleNav}>
+            <Button
+              skin={ButtonSkins.ICON}
+              onClick={rootStore.dashboardStore.toggleNav}
+            >
               <Menu />
             </Button>
           </ButtonMenuWrapper>
@@ -62,10 +62,6 @@ class Header extends Component<IHeaderProps> {
       </HeaderWrapper>
     );
   }
-
-  private onToggleNav = () => {
-    this.isNavOpened = !this.isNavOpened;
-  };
 }
 
 export default Header;

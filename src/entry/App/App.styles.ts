@@ -9,10 +9,13 @@ export const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
-    color: #ffffff;
-    font-family: Roboto, Arial, Helvetica, sans-serif;
     outline: none;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
   };
+
+  *:not(svg):not(path):not(rect) {
+    color: #ffffff;
+  }
 
   .key-input {
     *:focus { 

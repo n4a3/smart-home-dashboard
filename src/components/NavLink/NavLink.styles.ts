@@ -15,11 +15,20 @@ export const StyledNavLink = styled(NavLink).attrs({
   align-items: center;
   text-decoration: none;
   color: #98a7b9;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-left: 7px solid transparent;
+  padding-left: 20px;
+  transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
   &.active {
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
     background-color: #212a3d;
     color: #1f8efa;
+    border-left-color: currentColor;
+    transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  svg {
+    margin-right: 28px;
   }
 `;

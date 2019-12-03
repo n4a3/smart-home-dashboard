@@ -2,7 +2,7 @@ import React from 'react';
 import { StyledNavLink, ListItemWrapper } from './NavLink.styles';
 
 interface INavLinkProps {
-  children: string;
+  children: any;
   to: string;
   icon?: React.ReactSVGElement;
 }
