@@ -17,7 +17,7 @@ class App extends Component {
 
   public componentDidMount() {
     this.root.addEventListener('mousedown', this.setMouseInput);
-    this.root.addEventListener('keydown', this.setKeyboardInput);
+    this.root.addEventListener('keydown', this.keyboardHandler);
   }
 
   public render() {
@@ -42,12 +42,19 @@ class App extends Component {
   private setMouseInput = () => {
     this.root.classList.remove('key-input');
     this.root.removeEventListener('mousedown', this.setMouseInput);
-    this.root.addEventListener('keydown', this.setKeyboardInput);
+    this.root.addEventListener('keydown', this.keyboardHandler);
+  };
+
+  private keyboardHandler = (event: KeyboardEvent) => {
+    const keyCodes = [9, 27];
+    if (keyCodes.includes(event.keyCode)) {
+      this.setKeyboardInput();
+    }
   };
 
   private setKeyboardInput = () => {
     this.root.classList.add('key-input');
-    this.root.removeEventListener('keydown', this.setKeyboardInput);
+    this.root.removeEventListener('keydown', this.keyboardHandler);
     this.root.addEventListener('mousedown', this.setMouseInput);
   };
 }

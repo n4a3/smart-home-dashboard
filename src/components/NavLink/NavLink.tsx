@@ -1,16 +1,16 @@
 import React from 'react';
 import { StyledNavLink, ListItemWrapper } from './NavLink.styles';
+import { NavLinkProps } from 'react-router-dom';
 
-interface INavLinkProps {
-  children: any;
-  to: string;
-  icon?: React.ReactSVGElement;
-}
-
-const NavLink: React.FC<INavLinkProps> = ({ children, to, icon }) => {
+const NavLink: React.FC<NavLinkProps> = ({
+  to,
+  children,
+  activeClassName,
+  ...props
+}) => {
   return (
     <ListItemWrapper>
-      <StyledNavLink to={to} exact>
+      <StyledNavLink to={to} exact {...props}>
         {children}
       </StyledNavLink>
     </ListItemWrapper>
