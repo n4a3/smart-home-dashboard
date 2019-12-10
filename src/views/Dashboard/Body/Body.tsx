@@ -1,17 +1,18 @@
+import { observer } from 'mobx-react';
 import React, { Fragment } from 'react';
+import { PoseGroup } from 'react-pose';
+import { Route, Switch } from 'react-router';
+import { rootStore } from '../../../stores/RootStore';
 import {
-  Wrapper,
-  RouteContainer,
-  PageWrapper,
+  PageExtras,
   PageHeader,
   PageTitle,
-  PageExtras
+  PageWrapper,
+  RouteContainer,
+  Wrapper
 } from './Body.styles';
 import Navigation from './Navigation';
-import { Switch, Route } from 'react-router';
 import { routes } from './routes';
-import { observer } from 'mobx-react';
-import { PoseGroup } from 'react-pose';
 
 interface IBodyProps {}
 
@@ -20,7 +21,7 @@ const Body: React.FC<IBodyProps> = () => {
     <Wrapper>
       <Navigation />
 
-      <PageWrapper>
+      <PageWrapper isNavVisible={rootStore.dashboardStore.isNavVisible}>
         <Route
           render={({ location }) => (
             <PoseGroup>

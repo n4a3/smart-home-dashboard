@@ -1,15 +1,22 @@
 import styled from 'styled-components';
 import posed from 'react-pose';
 
+interface IPageWrapperProps {
+  isNavVisible: boolean;
+}
+
 export const Wrapper = styled.div`
   display: flex;
   flex-grow: 1;
   overflow: hidden;
 `;
 
-export const PageWrapper = styled.div`
+export const PageWrapper = styled.div<IPageWrapperProps>`
   width: 100%;
   margin: 0 58px;
+  margin-left: ${({ isNavVisible }) => (isNavVisible ? '240px' : '58px')};
+  transition: margin-left 0.4s;
+  transform: translateZ(0);
 `;
 
 export const RouteContainer = posed.div({

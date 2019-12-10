@@ -5,10 +5,12 @@ interface INavListProps {
 }
 
 export const NavList = styled.ul<INavListProps>`
-  list-style: none;
+  position: absolute;
+  width: 182px;
   margin: 0;
   padding: 0;
-  width: ${({ isVisible }) => (isVisible ? '182px' : 0)};
-  transform: translateX(${({ isVisible }) => (isVisible ? 0 : '-182px')});
-  transition: 0.4s;
+  list-style: none;
+  transform: translateX(${({ isVisible }) => (isVisible ? 0 : '-182px')})
+    translateZ(0);
+  transition: transform 0.4s;
 `;
