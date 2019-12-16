@@ -62,6 +62,7 @@ export const ModalWrapper = styled.div`
   min-width: 260px;
   box-shadow: 0 6px 13px rgba(21, 33, 56, 0.53);
   border-radius: 10px;
+  transform: translateZ(0);
 `;
 
 export const ModalHeader = styled.div`

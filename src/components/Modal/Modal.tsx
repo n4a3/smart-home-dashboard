@@ -20,7 +20,7 @@ import OutsideClickHandler from 'react-outside-click-handler';
 interface IModalProps {
   isOpened: boolean;
   onClose: () => void;
-  children: any;
+  children: ((onClose: () => void) => any) | any;
   title?: string;
 }
 
@@ -60,7 +60,11 @@ class Modal extends Component<IModalProps> {
                           <ClickableCloseIcon onClick={this.onClose} />
                         </ModalCloseIconWrapper>
                       </ModalHeader>
-                      <ModalBody>{children}</ModalBody>
+                      <ModalBody>
+                        {typeof children === 'function'
+                          ? children(this.onClose)
+                          : children}
+                      </ModalBody>
                     </ModalWrapper>
                   </OutsideClickHandler>
                 </PosedChildren>
