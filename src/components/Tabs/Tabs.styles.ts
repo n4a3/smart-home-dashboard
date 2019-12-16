@@ -10,7 +10,7 @@ interface IItemProps {
 }
 
 export const List = styled.ul<IListProps>`
-  margin: 0;
+  margin: 0 auto;
   padding: 2px;
   border-radius: 2px;
   background-color: #242e42;

@@ -2,7 +2,7 @@ import React from 'react';
 import { List, Item } from './Tabs.styles';
 
 interface ITabsProps {
-  items: string[];
+  items: any[];
   selected: number | null;
   onSelect: (index: number) => void;
   width?: string | number;
