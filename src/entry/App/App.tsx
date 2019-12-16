@@ -13,11 +13,11 @@ import { GlobalStyle } from './App.styles';
 
 @observer
 class App extends Component {
-  private root = document.getElementById('root')!;
+  private body = document.querySelector('body')!;
 
   public componentDidMount() {
-    this.root.addEventListener('mousedown', this.setMouseInput);
-    this.root.addEventListener('keydown', this.keyboardHandler);
+    this.body.addEventListener('mousedown', this.setMouseInput);
+    this.body.addEventListener('keydown', this.keyboardHandler);
   }
 
   public render() {
@@ -40,9 +40,9 @@ class App extends Component {
   }
 
   private setMouseInput = () => {
-    this.root.classList.remove('key-input');
-    this.root.removeEventListener('mousedown', this.setMouseInput);
-    this.root.addEventListener('keydown', this.keyboardHandler);
+    this.body.classList.remove('key-input');
+    this.body.removeEventListener('mousedown', this.setMouseInput);
+    this.body.addEventListener('keydown', this.keyboardHandler);
   };
 
   private keyboardHandler = (event: KeyboardEvent) => {
@@ -53,9 +53,9 @@ class App extends Component {
   };
 
   private setKeyboardInput = () => {
-    this.root.classList.add('key-input');
-    this.root.removeEventListener('keydown', this.keyboardHandler);
-    this.root.addEventListener('mousedown', this.setMouseInput);
+    this.body.classList.add('key-input');
+    this.body.removeEventListener('keydown', this.keyboardHandler);
+    this.body.addEventListener('mousedown', this.setMouseInput);
   };
 }
 
