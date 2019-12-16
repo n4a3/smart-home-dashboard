@@ -31,11 +31,11 @@ export const ToggleStyled = styled.div`
     height: 13px;
     border-radius: 50%;
     background-color: #70889e;
-    transition: 0.2s;
+    transition: 0.1s;
     ${ToggleHTMLHidden}:checked + & {
       background-color: #1f8efa;
       transform: translateX(100%);
-      transition: 0.2s;
+      transition: 0.1s;
     }
   }
 `;

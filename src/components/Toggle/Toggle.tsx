@@ -9,7 +9,7 @@ interface IToggleProps {
 const Toggle: React.FC<IToggleProps> = ({ checked, onClick }) => {
   return (
     <ToggleWrapper>
-      <ToggleHTMLHidden type="checkbox" checked={checked} onClick={onClick} />
+      <ToggleHTMLHidden type="checkbox" checked={checked} onChange={onClick} />
       <ToggleStyled />
     </ToggleWrapper>
   );
