@@ -24,7 +24,7 @@ export const routes = [
       component: Button,
       props: {
         skin: ButtonSkins.ICON,
-        onClick: () => rootStore.dashboardStore.openedModals.push('settings'),
+        onClick: () => rootStore.dashboardStore.openModal('settings'),
         children: SettingsIcon
       }
     }
@@ -38,7 +38,7 @@ export const routes = [
       component: Button,
       props: {
         skin: ButtonSkins.CIRCLE,
-        onClick: () => rootStore.dashboardStore.openedModals.push('add'),
+        onClick: () => rootStore.dashboardStore.openModal('add'),
         children: PlusIcon
       }
     }
@@ -52,7 +52,7 @@ export const routes = [
       component: Button,
       props: {
         skin: ButtonSkins.ICON,
-        onClick: () => rootStore.dashboardStore.openedModals.push('settings'),
+        onClick: () => rootStore.dashboardStore.openModal('settings'),
         children: SettingsIcon
       }
     }
@@ -66,7 +66,7 @@ export const routes = [
       component: Button,
       props: {
         skin: ButtonSkins.CIRCLE,
-        onClick: () => rootStore.dashboardStore.openedModals.push('add'),
+        onClick: () => rootStore.dashboardStore.openModal('add'),
         children: PlusIcon
       }
     }
@@ -80,7 +80,7 @@ export const routes = [
       component: Button,
       props: {
         skin: ButtonSkins.CIRCLE,
-        onClick: () => rootStore.dashboardStore.openedModals.push('add'),
+        onClick: () => rootStore.dashboardStore.openModal('add'),
         children: PlusIcon
       }
     }
