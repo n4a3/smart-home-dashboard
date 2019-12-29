@@ -1,21 +1,11 @@
 import styled from 'styled-components';
 
+export const ModalWrapper = styled.div``;
+
 export const SettingsWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin-top: 40px;
-`;
-
-export const Side = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-export const Divider = styled.div`
-  width: 1px;
-  background-color: #242e42;
-  margin: 0 40px;
 `;
 
 export const ButtonsWrapper = styled.div`

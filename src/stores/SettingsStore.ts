@@ -1,9 +1,14 @@
 import { computed, observable } from 'mobx';
 import DashboardStore from './DashboardStore';
 
-type TOverviewSettings = Array<{ title: string; checked: boolean }>;
+export type TSectionsSettings = Array<{ title: string; checked: boolean }>;
 
-const defOverviewSettings = [
+interface IOverviewSettings {
+  sections: TSectionsSettings;
+  layout: number;
+}
+
+const defSectionsSettings: TSectionsSettings = [
   { title: 'Camera', checked: true },
   { title: 'Consumption by room', checked: true },
   { title: 'Consumption by day', checked: true },
@@ -14,35 +19,50 @@ const defOverviewSettings = [
 
 class SettingsStore {
   @observable
-  private _overviewSettings: TOverviewSettings;
+  private sectionSettings: TSectionsSettings;
+  @observable
+  private layout = 0;
 
   @computed
-  public get overviewSettings() {
-    return this._overviewSettings;
+  public get overviewSettings(): IOverviewSettings {
+    return {
+      sections: this.sectionSettings,
+      layout: this.layout
+    };
   }
 
   public constructor(readonly dashboardStore: DashboardStore) {
     this.dashboardStore = dashboardStore;
+
     const overviewSettings = localStorage.getItem('overviewSettings');
     if (overviewSettings) {
-      this._overviewSettings = JSON.parse(overviewSettings);
+      const data: IOverviewSettings = JSON.parse(overviewSettings);
+      this.sectionSettings = data.sections;
+      this.layout = data.layout;
     } else {
-      localStorage.setItem(
-        'overviewSettings',
-        JSON.stringify(defOverviewSettings)
-      );
-      this._overviewSettings = defOverviewSettings;
+      const data: IOverviewSettings = {
+        sections: defSectionsSettings,
+        layout: this.layout
+      };
+
+      localStorage.setItem('overviewSettings', JSON.stringify(data));
+      this.sectionSettings = data.sections;
     }
   }
 
-  public setOverviewSettings = (newSettings: boolean[]) => {
-    this._overviewSettings = this._overviewSettings.map((setting, index) => ({
+  public setOverviewSettings = (
+    newSectionSettings: boolean[],
+    newLayout: number
+  ) => {
+    this.sectionSettings = this.sectionSettings.map((setting, index) => ({
       title: setting.title,
-      checked: newSettings[index]
+      checked: newSectionSettings[index]
     }));
+    this.layout = newLayout;
+
     localStorage.setItem(
       'overviewSettings',
-      JSON.stringify(this._overviewSettings)
+      JSON.stringify(this.overviewSettings)
     );
   };
 }
