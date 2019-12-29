@@ -74,6 +74,7 @@ export const DropdownBody = styled(PosedDropdownBody)<IDropdownBodyProps>`
   z-index: 1;
   margin-top: 8px;
   border-radius: 4px;
+  color: #ffffff;
   height: ${({ bodyHeight = 'auto' }) => getProp(bodyHeight)};
   ${({ skin, bodyWidth }) => {
     switch (skin) {

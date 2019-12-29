@@ -1,11 +1,6 @@
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
-import {
-  HashRouter as Router,
-  Redirect,
-  Route,
-  Switch
-} from 'react-router-dom';
+import { HashRouter as Router, Redirect, Route } from 'react-router-dom';
 import { rootStore } from '../../stores/RootStore';
 import Auth from '../../views/Auth';
 import Dashboard from '../../views/Dashboard';
@@ -14,6 +9,14 @@ import { GlobalStyle } from './App.styles';
 @observer
 class App extends Component {
   private body = document.querySelector('body')!;
+
+  private get route() {
+    return rootStore.authStore.authStatus ? (
+      <Redirect to="/dashboard" />
+    ) : (
+      <Redirect to="/login" />
+    );
+  }
 
   public componentDidMount() {
     this.body.addEventListener('mousedown', this.setMouseInput);
@@ -24,17 +27,9 @@ class App extends Component {
     return (
       <Router>
         <GlobalStyle />
-        <Switch>
-          <Route path="/" exact>
-            {rootStore.authStore.authStatus ? (
-              <Redirect to="/dashboard" />
-            ) : (
-              <Redirect to="/login" />
-            )}
-          </Route>
-          <Route path="/login" component={Auth} />
-          <Route path="/dashboard" component={Dashboard} />
-        </Switch>
+        <Route path="/" render={() => this.route} />
+        <Route path="/login" component={Auth} />
+        <Route path="/dashboard" component={Dashboard} />
       </Router>
     );
   }

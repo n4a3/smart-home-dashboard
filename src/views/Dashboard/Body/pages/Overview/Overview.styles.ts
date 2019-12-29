@@ -6,8 +6,8 @@ interface IWrapperProps {
 }
 
 const PosedWrapper = posed.div({
-  enter: { opacity: 1, scale: 1 },
-  exit: { opacity: 0, scale: 0.8 },
+  enter: { opacity: 1, scale: 1, transition: { duration: 200 } },
+  exit: { opacity: 0, scale: 0.8, transition: { duration: 600 } },
   preEnter: { opacity: 0, scale: 1.2 }
 });
 

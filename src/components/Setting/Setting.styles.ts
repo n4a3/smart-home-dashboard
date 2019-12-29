@@ -26,6 +26,7 @@ export const Wrapper = styled.div<IWrapperProps>`
 
 export const Title = styled.h3`
   font-size: 17px;
+  color: #ffffff;
   font-weight: 300;
   margin: 0;
 `;

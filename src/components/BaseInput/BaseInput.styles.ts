@@ -13,6 +13,7 @@ export const BaseStyled = styled.div<IBaseStyledProps>`
   border-radius: 4px;
   padding: 8px 13px;
   font-size: 12px;
+  color: #ffffff;
 `;
 
 export const Wrapper = styled.label``;

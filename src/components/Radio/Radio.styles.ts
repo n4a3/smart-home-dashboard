@@ -23,6 +23,7 @@ export const RadioStyled = styled.button`
   font-size: 12px;
   line-height: 12px;
   border: none;
+  color: #ffffff;
 `;
 
 export const Indicator = styled.div<IIndicatorProps>`

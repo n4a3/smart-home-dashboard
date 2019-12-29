@@ -59,6 +59,7 @@ export const LayerOverlay = styled.div`
 
 export const ModalWrapper = styled.div`
   background-color: #2f3b52;
+  color: #ffffff;
   min-width: 260px;
   box-shadow: 0 6px 13px rgba(21, 33, 56, 0.53);
   border-radius: 10px;

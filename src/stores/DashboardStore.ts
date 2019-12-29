@@ -1,35 +1,22 @@
 import { observable, computed } from 'mobx';
 import { RootStore } from './RootStore';
 import SettingsStore from './SettingsStore';
-
-const modes: [string, string, string][] = [
-  [
-    '"camera camera camera room room"',
-    '"camera camera camera day limit"',
-    '"units units units units units"'
-  ],
-  [
-    '"room room camera camera camera"',
-    '"day limit camera camera camera"',
-    '"units units units units units"'
-  ]
-];
+import { gridLayouts } from '../constants/girdLayouts';
 
 class DashboardStore {
-  settingsStore: SettingsStore;
+  readonly settingsStore: SettingsStore;
 
   @observable
   public isNavVisible = true;
-  @observable
-  private overviewMode: number = 0;
   @observable
   private openedModals: string[] = [];
 
   @computed
   public get currentOverviewMode() {
+    const current = this.settingsStore.overviewSettings.layout;
     return {
-      key: this.overviewMode,
-      css: modes[this.overviewMode]
+      key: current,
+      css: gridLayouts[current]
     };
   }
 
@@ -40,10 +27,6 @@ class DashboardStore {
 
   public toggleNav = () => {
     this.isNavVisible = !this.isNavVisible;
-  };
-
-  public setOverviewMode = (idx: number) => {
-    this.overviewMode = idx;
   };
 
   public isModalOpened = (key: string) => this.openedModals.indexOf(key) !== -1;

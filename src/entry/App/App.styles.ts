@@ -5,17 +5,13 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     background-color: #242e42;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
   };
 
   * {
     box-sizing: border-box;
     outline: none;
-    font-family: Roboto, Arial, Helvetica, sans-serif;
   };
-
-  *:not(svg):not(path):not(rect) {
-    color: #ffffff;
-  }
 
   .key-input {
     *:focus { 

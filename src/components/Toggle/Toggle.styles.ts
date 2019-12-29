@@ -38,4 +38,7 @@ export const ToggleStyled = styled.div`
       transition: 0.1s;
     }
   }
+  ${ToggleHTMLHidden}:focus + & {
+    box-shadow: 0 0 2px 2px #1f8efa7f;
+  }
 `;
