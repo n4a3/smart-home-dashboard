@@ -1,56 +1,71 @@
+import React, { Component, Suspense, lazy } from 'react';
+import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { GlobalStyle, LoaderWraper } from './App.styles';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
+import Loader from '../../components/Loader';
 import { observer } from 'mobx-react';
-import React, { Component } from 'react';
-import { HashRouter as Router, Redirect, Route } from 'react-router-dom';
-import { rootStore } from '../../stores/RootStore';
-import Auth from '../../views/Auth';
-import Dashboard from '../../views/Dashboard';
-import { GlobalStyle } from './App.styles';
+import { observable } from 'mobx';
+import Button from '../../components/Button';
+
+const Auth = lazy(() => import('../../views/Auth'));
+const Dashboard = lazy(() => import('../../views/Dashboard'));
 
 @observer
 class App extends Component {
-  private body = document.querySelector('body')!;
-
-  private get route() {
-    return rootStore.authStore.authStatus ? (
-      <Redirect to="/dashboard" />
-    ) : (
-      <Redirect to="/login" />
-    );
-  }
+  @observable
+  private hasError = false;
 
   public componentDidMount() {
-    this.body.addEventListener('mousedown', this.setMouseInput);
-    this.body.addEventListener('keydown', this.keyboardHandler);
+    document.body.addEventListener('mousedown', this.setMouseInput);
+    document.body.addEventListener('keydown', this.keyboardHandler);
+  }
+
+  public componentDidCatch() {
+    this.hasError = true;
   }
 
   public render() {
     return (
-      <Router>
+      <HashRouter>
         <GlobalStyle />
-        <Route path="/" render={() => this.route} />
-        <Route path="/login" component={Auth} />
-        <Route path="/dashboard" component={Dashboard} />
-      </Router>
+        {this.hasError ? (
+          <Button onClick={() => window.location.reload()}>Refresh</Button>
+        ) : (
+          <Suspense
+            fallback={
+              <LoaderWraper>
+                <Loader />
+              </LoaderWraper>
+            }
+          >
+            <Switch>
+              <PrivateRoute path="/dashboard" component={Dashboard} />
+              <Route path="/login" component={Auth} />
+              <Redirect to="/dashboard" />
+            </Switch>
+          </Suspense>
+        )}
+      </HashRouter>
     );
   }
 
   private setMouseInput = () => {
-    this.body.classList.remove('key-input');
-    this.body.removeEventListener('mousedown', this.setMouseInput);
-    this.body.addEventListener('keydown', this.keyboardHandler);
+    document.body.classList.remove('key-input');
+    document.body.removeEventListener('mousedown', this.setMouseInput);
+    document.body.addEventListener('keydown', this.keyboardHandler);
   };
 
   private keyboardHandler = (event: KeyboardEvent) => {
-    const keyCodes = [9, 27];
-    if (keyCodes.includes(event.keyCode)) {
+    const keys = ['Tab', 'Escape'];
+    if (keys.includes(event.key)) {
       this.setKeyboardInput();
     }
   };
 
   private setKeyboardInput = () => {
-    this.body.classList.add('key-input');
-    this.body.removeEventListener('keydown', this.keyboardHandler);
-    this.body.addEventListener('mousedown', this.setMouseInput);
+    document.body.classList.add('key-input');
+    document.body.removeEventListener('keydown', this.keyboardHandler);
+    document.body.addEventListener('mousedown', this.setMouseInput);
   };
 }
 
