@@ -26,6 +26,9 @@ export const StyledNavLink = styled(NavLink).attrs({
     color: #1f8efa;
     border-left-color: currentColor;
     transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    .key-input &:focus {
+      background-color: #44556b;
+    }
   }
 
   svg {

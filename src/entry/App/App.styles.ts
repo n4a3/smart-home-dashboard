@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   html, body {
@@ -10,7 +10,21 @@ export const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
+  };
+
+  *:focus {
     outline: none;
+  };
+
+  *::-moz-focus-inner {
+    border: none;
+  };
+
+  input, button { 
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
   };
 
   .key-input {
@@ -22,4 +36,11 @@ export const GlobalStyle = createGlobalStyle`
       background-color: #3e4e6c;
     }
   };
+`;
+
+export const LoaderWraper = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%);
 `;
