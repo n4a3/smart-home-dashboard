@@ -1,7 +1,6 @@
-import { InputTypes } from './InputTypes';
+import { AlertSkins } from './AlertSkins';
 import { ButtonSkins } from './ButtonSkins';
 import { DropdownSkins } from './DropdownSkins';
 import { LinkSkins } from './LinkSkins';
 
-export { InputTypes };
-export { ButtonSkins, DropdownSkins, LinkSkins };
+export { AlertSkins, ButtonSkins, DropdownSkins, LinkSkins };
