@@ -1,3 +1,17 @@
+# Pet-project "Smart Home Dashboard"
+
+## [Demo](https://n4a3.github.io/smart-home) | [Storybook](https://n4a3.github.io/smart-home-storybook) | [Design by InVision](https://www.invisionapp.com/inside-design/design-resources/smart-home-ui-kit/)
+
+## TypeScript, React, MobX, React Pose, Styled Components
+
+### You can register on dashboard. Credentials will be stored in localStorage.<br />After registration you can log in/log out.
+
+### You can change settings, which will also be stored in localStorage.
+
+### The dashboard is fully accessible from the keyboard.
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
