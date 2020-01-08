@@ -44,7 +44,7 @@ const Auth: React.FC<RouteComponentProps> = ({ location: { search } }) => {
             to="https://n4a3.github.io/smart-home-storybook/"
             target="_blank"
           >
-            <Button skin={ButtonSkins.CIRCLE} disabled>
+            <Button skin={ButtonSkins.CIRCLE} tabIndex={-1}>
               <PlayIcon />
             </Button>
             <Container marginRight={8} />

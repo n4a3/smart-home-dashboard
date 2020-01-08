@@ -2,28 +2,23 @@ import React from 'react';
 import { ButtonStyled } from './Button.styles';
 import { ButtonSkins } from '../../types';
 
-interface IButtonProps {
+interface IProps {
   children: any;
-  onClick?: () => void;
   skin?: ButtonSkins;
   width?: string | number;
-  disabled?: boolean;
 }
+
+type IButtonProps = IProps & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button: React.FC<IButtonProps> = ({
   children,
-  onClick = () => null,
   skin = ButtonSkins.DEFAULT,
   width,
-  disabled
+  disabled,
+  ...rest
 }) => {
   return (
-    <ButtonStyled
-      skin={skin}
-      onClick={onClick}
-      width={width}
-      disabled={disabled}
-    >
+    <ButtonStyled skin={skin} width={width} {...rest}>
       {children}
     </ButtonStyled>
   );

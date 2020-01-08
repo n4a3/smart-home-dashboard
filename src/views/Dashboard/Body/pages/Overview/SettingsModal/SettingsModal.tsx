@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { observable, computed } from 'mobx';
 import Modal from '../../../../../../components/Modal';
@@ -29,6 +29,7 @@ class SettingsModal extends Component {
       setting => setting.checked
     )
   };
+
   @observable
   private selectedLayout: number =
     rootStore.dashboardStore.settingsStore.overviewSettings.layout;
@@ -55,7 +56,7 @@ class SettingsModal extends Component {
       >
         {(onClose: () => void) => {
           const onSave = () => {
-            this.onSave();
+            this.saveSettings();
             onClose();
           };
           return (
@@ -108,7 +109,7 @@ class SettingsModal extends Component {
       rootStore.dashboardStore.settingsStore.overviewSettings.layout;
   };
 
-  private onSave = () => {
+  private saveSettings = () => {
     rootStore.dashboardStore.settingsStore.setOverviewSettings(
       this.sectionsStatus,
       this.selectedLayout

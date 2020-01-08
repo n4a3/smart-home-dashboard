@@ -5,7 +5,7 @@ interface IListProps {
   width?: string | number;
 }
 
-interface IItemProps {
+interface IItemButtonProps {
   selected: boolean;
 }
 
@@ -22,11 +22,20 @@ export const List = styled.ul<IListProps>`
   text-transform: uppercase;
 `;
 
-export const Item = styled.li<IItemProps>`
+export const Item = styled.li`
   display: inline-block;
   margin: 0;
+  padding: 0;
+`;
+
+export const ItemButton = styled.button<IItemButtonProps>`
+  margin: 0;
   padding: 6px 8px;
+  background-color: transparent;
+  color: #657d95;
+  border: none;
   cursor: pointer;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
   ${({ selected }) =>
     selected &&
     css`

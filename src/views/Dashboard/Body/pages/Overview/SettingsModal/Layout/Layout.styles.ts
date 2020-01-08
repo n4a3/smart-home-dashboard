@@ -1,14 +1,27 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+interface IDescriptionProps {
+  onlyOnKeyboard?: boolean;
+}
 
 export const Wrapper = styled.div`
   text-align: center;
 `;
 
-export const Description = styled.p`
+export const Description = styled.p<IDescriptionProps>`
   font-size: 17px;
   color: #869aac;
   margin-top: 32px;
   margin-bottom: 36px;
+  ${({ onlyOnKeyboard }) =>
+    onlyOnKeyboard &&
+    css`
+      display: none;
+
+      .key-input & {
+        display: block;
+      }
+    `}
 `;
 
 export const LayoutList = styled.ul`

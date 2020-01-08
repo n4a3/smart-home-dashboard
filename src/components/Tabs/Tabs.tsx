@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Item } from './Tabs.styles';
+import { List, Item, ItemButton } from './Tabs.styles';
 
 interface ITabsProps {
   items: any[];
@@ -20,8 +20,10 @@ const Tabs: React.FC<ITabsProps> = ({
         const onClick = () => onSelect(index);
         const isSelected = selected === index;
         return (
-          <Item key={index} onClick={onClick} selected={isSelected}>
-            {item}
+          <Item key={index}>
+            <ItemButton onClick={onClick} selected={isSelected}>
+              {item}
+            </ItemButton>
           </Item>
         );
       })}

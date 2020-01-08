@@ -51,6 +51,7 @@ interface IProps {
   isRotatable?: boolean;
   skin?: DropdownSkins;
   flatButtonSkin?: ButtonSkins;
+  disableBlur?: boolean;
 }
 
 type IDropdownProps = IProps & IDropdownBodyProps;
@@ -59,7 +60,6 @@ type IDropdownProps = IProps & IDropdownBodyProps;
 class Dropdown extends Component<IDropdownProps> {
   @observable
   private isOpened: boolean = false;
-  private root = document.getElementById('root')!;
 
   public render() {
     const {
@@ -86,8 +86,9 @@ class Dropdown extends Component<IDropdownProps> {
               {skin === DropdownSkins.DEFAULT ? (
                 <DropdownHeader
                   as="button"
-                  onClick={this.onClick}
                   width={headerWidth}
+                  onClick={this.onClick}
+                  onBlur={this.onBlur}
                 >
                   <LabelWrapper>{children}</LabelWrapper>
                   <IconWrapper
@@ -98,7 +99,11 @@ class Dropdown extends Component<IDropdownProps> {
                   </IconWrapper>
                 </DropdownHeader>
               ) : (
-                <Button onClick={this.onClick} skin={flatButtonSkin}>
+                <Button
+                  skin={flatButtonSkin}
+                  onClick={this.onClick}
+                  onBlur={this.onBlur}
+                >
                   {children}
                 </Button>
               )}
@@ -129,18 +134,23 @@ class Dropdown extends Component<IDropdownProps> {
     const { onClose = () => null } = this.props;
     this.isOpened = false;
     onClose();
-    this.root.removeEventListener('keydown', this.closeOnKeyDown);
   };
 
   private onOpen = () => {
     const { onOpen = () => null } = this.props;
     this.isOpened = true;
     onOpen();
-    this.root.addEventListener('keydown', this.closeOnKeyDown);
   };
 
-  private closeOnKeyDown = (event: KeyboardEvent) => {
-    event.keyCode === 9 && this.onClose();
+  private onBlur = (event: React.FocusEvent<HTMLButtonElement>) => {
+    if (this.isOpened) {
+      const dropdownBody = event.currentTarget.nextElementSibling;
+      const nextFocusedElement = event.relatedTarget as Node;
+      if (dropdownBody && dropdownBody.contains(nextFocusedElement)) {
+        return;
+      }
+      this.onClose();
+    }
   };
 }
 

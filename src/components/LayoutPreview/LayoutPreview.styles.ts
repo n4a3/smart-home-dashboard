@@ -32,6 +32,10 @@ export const Wrapper = styled.div<IWrapperProps>`
   ${RadioHTMLHidden}:checked + & {
     background-color: #1f8efa;
   }
+
+  .key-input ${RadioHTMLHidden}:focus + & {
+    box-shadow: 0 0 8px 8px #1f8efa7f;
+  }
 `;
 
 export const GridItem = styled.div<IGridItemProps>`

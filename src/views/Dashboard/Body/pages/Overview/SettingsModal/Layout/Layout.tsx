@@ -1,7 +1,7 @@
 import React from 'react';
 import { convertAreas } from '../../../../../../../utils/convertAreas';
 import { gridLayouts } from '../../../../../../../constants/girdLayouts';
-import LayoutPreview from '../../../../../../../components/LayoutItem';
+import LayoutPreview from '../../../../../../../components/LayoutPreview';
 import { observer } from 'mobx-react';
 import { Wrapper, Description, LayoutList, LayoutItem } from './Layout.styles';
 
@@ -15,6 +15,9 @@ const Layout: React.FC<ILayoutProps> = ({ selected, onSelect }) => (
     <Description>
       Customize your overview page layout. Choose the one that best fits your
       needs.
+    </Description>
+    <Description onlyOnKeyboard>
+      Use the arrow keys to navigate the layouts.
     </Description>
     <LayoutList>
       {gridLayouts.map((layout, index) => {

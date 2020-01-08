@@ -2,7 +2,6 @@ import { storiesOf } from '@storybook/react';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
-import { InputTypes } from '../../types';
 import TextInput from './TextInput';
 
 @observer
@@ -19,7 +18,7 @@ class TextInputStory extends Component {
         value={this.value}
         onChange={this.onChange}
         hasError={this.hasError}
-        type={InputTypes.EMAIL}
+        type="email"
       />
     );
   }
