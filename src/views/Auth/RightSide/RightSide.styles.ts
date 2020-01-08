@@ -22,7 +22,7 @@ export const ContentWrapper = styled.div`
 export const TopWrapper = styled.div`
   text-align: center;
 `;
-export const CenterWrapper = styled.div`
+export const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
   height: 100%;

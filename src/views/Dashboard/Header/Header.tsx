@@ -40,21 +40,33 @@ class Header extends Component<IHeaderProps> {
         <HeaderSection>
           <Progress percent={60} icon={Storage} />
           <Container marginRight={56} />
-          <Dropdown skin={DropdownSkins.FLAT} renderBody={() => 'dsdad'}>
+          <Dropdown skin={DropdownSkins.FLAT} renderBody={() => 'Empty'}>
             <Help />
           </Dropdown>
-          <Dropdown skin={DropdownSkins.FLAT} renderBody={() => 'asdasdd'}>
+          <Dropdown skin={DropdownSkins.FLAT} renderBody={() => 'Empty'}>
             <Email />
           </Dropdown>
           <Dropdown
             skin={DropdownSkins.FLAT}
             bodyWidth={272}
-            renderBody={() => 'asdsadad'}
+            renderBody={() => 'Empty'}
           >
             <Notification />
           </Dropdown>
-          <Dropdown renderBody={() => 'aaaa'} headerWidth="auto">
-            Username
+          <Dropdown
+            headerWidth={140}
+            renderBody={(onClose: () => void) => (
+              <Button
+                skin={ButtonSkins.TRANSPARENT}
+                width="100%"
+                onClick={rootStore.authStore.logout}
+                onBlur={onClose}
+              >
+                Sign Out
+              </Button>
+            )}
+          >
+            {rootStore.authStore.name}
           </Dropdown>
         </HeaderSection>
       </HeaderWrapper>

@@ -3,17 +3,20 @@ import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { PoseGroup } from 'react-pose';
 import { ReactComponent as SimpleLogo } from '../../../assets/simple-logo.svg';
+import Alert from '../../../components/Alert';
 import Button from '../../../components/Button';
 import Container from '../../../components/Container';
 import Link from '../../../components/Link';
+import Loader from '../../../components/Loader';
 import TextInput, {
   ITextInputProps
 } from '../../../components/TextInput/TextInput';
-import { InputTypes, LinkSkins } from '../../../types';
+import { rootStore } from '../../../stores/RootStore';
+import { AlertSkins, LinkSkins } from '../../../types';
 import {
   BottomWrapper,
-  CenterWrapper,
   ContentWrapper,
+  FormWrapper,
   Heading,
   PosedFormInput,
   RightSideWrapper,
@@ -32,8 +35,7 @@ interface IRouteProps {
   button: {
     key: string;
     text: string;
-    onClick: () => void;
-  };
+  } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 }
 
 @observer
@@ -50,6 +52,8 @@ class RightSide extends Component<IRightSideProps> {
   @observable
   private emailError: boolean | null = null;
   @observable
+  private passwordError: boolean | null = null;
+  @observable
   private passwordConfirmError: boolean | null = null;
 
   private get loginForm(): IRouteProps {
@@ -60,7 +64,7 @@ class RightSide extends Component<IRightSideProps> {
           props: {
             value: this.email,
             onChange: this.onEmailChange,
-            type: InputTypes.EMAIL,
+            type: 'email',
             label: 'Email',
             hasError: this.emailError,
             onBlur: this.validateEmail
@@ -71,15 +75,16 @@ class RightSide extends Component<IRightSideProps> {
           props: {
             value: this.password,
             onChange: this.onPasswordChange,
-            type: InputTypes.PASSWORD,
-            label: 'Password'
+            type: 'password',
+            label: 'Password',
+            hasError: this.passwordError
           }
         }
       ],
       button: {
         key: 'f-btn-sign-in',
-        text: 'Sing In',
-        onClick: this.onSingIn
+        text: 'Sign In',
+        disabled: true
       }
     };
   }
@@ -93,7 +98,7 @@ class RightSide extends Component<IRightSideProps> {
           props: {
             value: this.passwordConfirm,
             onChange: this.onPasswordConfirmChange,
-            type: InputTypes.PASSWORD,
+            type: 'password',
             label: 'Password Confirm',
             hasError: this.passwordConfirmError
           }
@@ -103,15 +108,14 @@ class RightSide extends Component<IRightSideProps> {
           props: {
             value: this.fullName,
             onChange: this.onFullNameChange,
-            type: InputTypes.TEXT,
             label: 'Full Name'
           }
         }
       ],
       button: {
         key: 'f-btn-sign-up',
-        text: 'Sing Up',
-        onClick: this.onSingIn
+        text: 'Sign Up',
+        onClick: this.onSignUp
       }
     };
   }
@@ -121,8 +125,7 @@ class RightSide extends Component<IRightSideProps> {
       fields: [this.loginForm.fields[0]],
       button: {
         key: 'f-btn-restore',
-        text: 'Retore password',
-        onClick: this.onSingIn
+        text: 'Restore password'
       }
     };
   }
@@ -166,7 +169,7 @@ class RightSide extends Component<IRightSideProps> {
             <SimpleLogo style={{ alignSelf: 'center' }} />
             <Heading>{this.heading}</Heading>
           </TopWrapper>
-          <CenterWrapper>
+          <FormWrapper onSubmit={this.onFormSubmit}>
             <PoseGroup>
               {[
                 ...this.form.fields.map(({ key, props }, index) => (
@@ -180,9 +183,26 @@ class RightSide extends Component<IRightSideProps> {
                   key={this.form.button.key}
                   index={this.form.fields.length}
                 >
-                  <Button width="100%" onClick={this.form.button.onClick}>
-                    {this.form.button.text}
+                  <Button
+                    width="100%"
+                    onClick={this.form.button.onClick}
+                    disabled={rootStore.authStore.loading}
+                  >
+                    {rootStore.authStore.loading ? (
+                      <Loader />
+                    ) : (
+                      this.form.button.text
+                    )}
                   </Button>
+                </PosedFormInput>,
+                <PosedFormInput key="alert">
+                  {rootStore.authStore.error && (
+                    <Container marginTop={24}>
+                      <Alert skin={AlertSkins.ERROR}>
+                        {rootStore.authStore.error}
+                      </Alert>
+                    </Container>
+                  )}
                 </PosedFormInput>
               ]}
             </PoseGroup>
@@ -194,7 +214,7 @@ class RightSide extends Component<IRightSideProps> {
                 </Link>
               </Container>
             )}
-          </CenterWrapper>
+          </FormWrapper>
           <BottomWrapper>{this.bottomLink}</BottomWrapper>
         </ContentWrapper>
       </RightSideWrapper>
@@ -203,10 +223,12 @@ class RightSide extends Component<IRightSideProps> {
 
   private onEmailChange = (event: React.FormEvent<HTMLInputElement>) => {
     this.email = event.currentTarget.value;
+    this.passwordError = null;
   };
 
   private onPasswordChange = (event: React.FormEvent<HTMLInputElement>) => {
     this.password = event.currentTarget.value;
+    this.passwordError = null;
   };
 
   private onPasswordConfirmChange = (
@@ -216,6 +238,7 @@ class RightSide extends Component<IRightSideProps> {
     this.passwordConfirmError = this.passwordConfirm.length
       ? this.passwordConfirm !== this.password
       : null;
+    this.passwordError = null;
   };
 
   private onFullNameChange = (event: React.FormEvent<HTMLInputElement>) => {
@@ -230,10 +253,28 @@ class RightSide extends Component<IRightSideProps> {
     this.emailError = length ? !valid : null;
   };
 
-  private onSingIn = () => {
-    if (this.email && this.password) {
-      console.log('test');
+  private onSignIn = async () => {
+    if (this.emailError === false && this.password && !this.passwordError) {
+      const status = await rootStore.authStore.login(this.email, this.password);
+      if (status === null) {
+        return;
+      }
+      this.passwordError = !status;
     }
+  };
+
+  private onSignUp = () => {
+    if (
+      this.emailError === false &&
+      this.passwordConfirmError === false &&
+      this.fullName
+    ) {
+      rootStore.authStore.register(this.email, this.password, this.fullName);
+    }
+  };
+
+  private onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
   };
 }
 
