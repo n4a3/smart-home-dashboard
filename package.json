@@ -20,9 +20,9 @@
     "react-portal": "^4.2.0",
     "react-pose": "^4.0.9",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0",
+    "react-scripts": "3.3.0",
     "styled-components": "^4.4.1",
-    "typescript": "3.6.4"
+    "typescript": "^3.7.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,7 +39,8 @@
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all"
+      "not op_mini all",
+      "not IE 11"
     ],
     "development": [
       "last 1 chrome version",

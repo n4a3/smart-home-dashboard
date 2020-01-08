@@ -1,6 +1,9 @@
 import BaseInput from './BaseInput';
-import { BaseStyled, IBaseStyledProps } from './BaseInput.styles';
+import {
+  BaseStyled,
+  IBaseStyledProps as IIBaseStyledProps // For TS 3.7
+} from './BaseInput.styles';
 
-export type IBaseStyledProps = IBaseStyledProps;
+export type IBaseStyledProps = IIBaseStyledProps;
 export { BaseStyled };
 export default BaseInput;
