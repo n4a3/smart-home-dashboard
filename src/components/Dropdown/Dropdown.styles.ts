@@ -13,12 +13,16 @@ export interface IDropdownBodyProps {
    * Custom height for dropdown body
    */
   bodyHeight?: string | number;
+  /**
+   * Skin for dropdown;
+   * If "FLAT" is used, it renders only the <Button>, w/o any labels, icons and etc.
+   */
   skin?: DropdownSkins;
 }
 
 export interface IIconWrapperProps {
   /**
-   * Rotate icon?
+   * Rotate the icon when the Dropdown opens/closes
    */
   isRotatable?: boolean;
   isOpened: boolean;

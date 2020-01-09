@@ -48,10 +48,15 @@ interface IProps {
    */
   onClose?: () => void;
   headerWidth?: string | number;
+  /**
+   * Is icon rotatable (for triangle icon e.g.)
+   */
   isRotatable?: boolean;
-  skin?: DropdownSkins;
+  /**
+   * Skin for Button;
+   * Use with "FLAT" Dropdown skin!
+   */
   flatButtonSkin?: ButtonSkins;
-  disableBlur?: boolean;
 }
 
 type IDropdownProps = IProps & IDropdownBodyProps;
