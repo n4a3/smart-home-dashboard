@@ -10,13 +10,16 @@ export const List = styled.ol`
   list-style: none;
 `;
 
-export const Item = styled.li<IItemProps>`
+export const ItemWrapper = styled.li``;
+
+export const Item = styled.button<IItemProps>`
   width: 100%;
   height: 32px;
   padding: 8px 13px;
   font-size: 12px;
-  cursor: pointer;
-  background-color: ${({ isSelected }) => (isSelected ? '#1f8efa' : 'none')};
+  border: none;
+  background-color: ${({ isSelected }) =>
+    isSelected ? '#1f8efa' : 'transparent'};
   color: ${({ isSelected }) => isSelected && '#ffffff'};
   overflow: hidden;
   white-space: nowrap;

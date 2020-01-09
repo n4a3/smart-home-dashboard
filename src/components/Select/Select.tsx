@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Dropdown from '../Dropdown';
 import { IDropdownBodyProps } from '../Dropdown/Dropdown.styles';
-import { Item, List } from './Select.styles';
+import { Item, List, ItemWrapper } from './Select.styles';
 
 interface IProps {
   items: string[];
@@ -26,11 +26,18 @@ class Select extends Component<ISelectProps & IDropdownBodyProps> {
             onSelect(index);
             onClose();
           };
+          const onBlur = () => {
+            if (index === items.length - 1) {
+              onClose();
+            }
+          };
           const isSelected = selected === index;
           return (
-            <Item key={index} onClick={onClick} isSelected={isSelected}>
-              {item}
-            </Item>
+            <ItemWrapper key={index}>
+              <Item onClick={onClick} isSelected={isSelected} onBlur={onBlur}>
+                {item}
+              </Item>
+            </ItemWrapper>
           );
         })}
       </List>
