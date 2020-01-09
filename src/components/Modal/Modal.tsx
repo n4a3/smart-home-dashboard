@@ -24,8 +24,6 @@ interface IModalProps {
   title?: string;
 }
 
-const ESC_KEY_CODE = 27;
-
 const ClickableCloseIcon = clickable(CloseIcon);
 
 @observer
@@ -81,7 +79,7 @@ class Modal extends Component<IModalProps> {
   };
 
   private onPressEsc = (event: KeyboardEvent) => {
-    if (event.keyCode === ESC_KEY_CODE) {
+    if (event.key === 'Escape') {
       this.onClose();
     }
   };

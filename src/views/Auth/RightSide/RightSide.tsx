@@ -84,7 +84,7 @@ class RightSide extends Component<IRightSideProps> {
       button: {
         key: 'f-btn-sign-in',
         text: 'Sign In',
-        disabled: true
+        onClick: this.onSignIn
       }
     };
   }
@@ -125,7 +125,8 @@ class RightSide extends Component<IRightSideProps> {
       fields: [this.loginForm.fields[0]],
       button: {
         key: 'f-btn-restore',
-        text: 'Restore password'
+        text: 'Restore password',
+        disabled: true
       }
     };
   }
