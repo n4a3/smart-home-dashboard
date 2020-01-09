@@ -11,6 +11,13 @@ interface IProps {
 
 type ILinkProps = IProps & LinkProps;
 
+const onLinkKeyPress = (event: React.KeyboardEvent<HTMLAnchorElement>) => {
+  if (event.key === ' ') {
+    event.preventDefault();
+    (event.target as HTMLAnchorElement).click();
+  }
+};
+
 const Link: React.FC<ILinkProps> = ({
   skin = LinkSkins.PRIMARY,
   children,
@@ -18,11 +25,21 @@ const Link: React.FC<ILinkProps> = ({
   ...props
 }) => {
   return to.indexOf('://') !== -1 ? (
-    <LinkExternalStyled skin={skin} href={to} {...props}>
+    <LinkExternalStyled
+      skin={skin}
+      href={to}
+      onKeyDown={onLinkKeyPress}
+      {...props}
+    >
       {children}
     </LinkExternalStyled>
   ) : (
-    <LinkInternalStyled skin={skin} to={to} {...props}>
+    <LinkInternalStyled
+      skin={skin}
+      to={to}
+      onKeyDown={onLinkKeyPress}
+      {...props}
+    >
       {children}
     </LinkInternalStyled>
   );
