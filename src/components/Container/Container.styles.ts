@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { getProp } from '../../utils/getProp';
 
-interface IWrapperProps {
+export interface IWrapperProps {
   marginLeft?: string | number;
   marginRight?: string | number;
   marginTop?: string | number;

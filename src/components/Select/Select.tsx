@@ -4,12 +4,31 @@ import { IDropdownBodyProps } from '../Dropdown/Dropdown.styles';
 import { Item, List, ItemWrapper } from './Select.styles';
 
 interface IProps {
+  /**
+   * Array of items to display in a list
+   */
   items: string[];
+  /**
+   * The action that will be called after clicking on an item
+   */
   onSelect: (index: number) => void;
   selected: number | null;
+  /**
+   * Label for dropdown
+   */
   label?: string;
+  /**
+   * Text to display in the header of the dropdown if no items are selected or showSelected is false/not provided
+   * @default "Select..."
+   */
   placeholder?: string;
+  /**
+   * If true, the selected item will be displayed in the header of the dropdown
+   */
   showSelected?: boolean;
+  /**
+   * Custom icon
+   */
   icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
 }
 

@@ -2,6 +2,9 @@ import React from 'react';
 import { List, Item, ItemButton } from './Tabs.styles';
 
 interface ITabsProps {
+  /**
+   * Array of items to display in a tab
+   */
   items: any[];
   selected: number | null;
   onSelect: (index: number) => void;

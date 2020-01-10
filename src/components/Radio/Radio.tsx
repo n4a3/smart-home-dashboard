@@ -3,6 +3,9 @@ import { RadioStyled, Indicator } from './Radio.styles';
 
 interface IRadioProps {
   selected: boolean;
+  /**
+   * Square or circle
+   */
   circle?: boolean;
   onClick: () => void;
 }

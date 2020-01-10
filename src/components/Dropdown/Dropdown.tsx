@@ -49,7 +49,7 @@ interface IProps {
   onClose?: () => void;
   headerWidth?: string | number;
   /**
-   * Is icon rotatable (for triangle icon e.g.)
+   * Rotate the icon when the Dropdown opens/closes
    */
   isRotatable?: boolean;
   /**
