@@ -2,6 +2,7 @@ import React from 'react';
 import { LinkInternalStyled, LinkExternalStyled } from './Link.styles';
 import { LinkSkins } from '../../types';
 import { LinkProps } from 'react-router-dom';
+import { onLinkKeyPress } from '../../utils/onLinkKeyPress';
 
 interface IProps {
   skin?: LinkSkins;
@@ -10,13 +11,6 @@ interface IProps {
 }
 
 type ILinkProps = IProps & LinkProps;
-
-const onLinkKeyPress = (event: React.KeyboardEvent<HTMLAnchorElement>) => {
-  if (event.key === ' ') {
-    event.preventDefault();
-    (event.target as HTMLAnchorElement).click();
-  }
-};
 
 const Link: React.FC<ILinkProps> = ({
   skin = LinkSkins.PRIMARY,
