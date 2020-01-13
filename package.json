@@ -4,10 +4,10 @@
   "private": true,
   "homepage": "https://n4a3.github.io/smart-home",
   "dependencies": {
-    "@types/jest": "24.0.21",
-    "@types/node": "^12.12.5",
+    "@types/jest": "24.0.25",
+    "@types/node": "^13.1.6",
     "@types/react": "^16.9.11",
-    "@types/react-dom": "16.9.3",
+    "@types/react-dom": "16.9.4",
     "@types/react-outside-click-handler": "^1.2.0",
     "@types/react-portal": "^4.0.2",
     "@types/react-router-dom": "^5.1.2",
@@ -49,10 +49,10 @@
     ]
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^5.2.5",
-    "@storybook/addon-storysource": "^5.2.5",
-    "@storybook/react": "^5.2.5",
-    "@types/storybook__react": "^4.0.2",
+    "@storybook/addon-actions": "^5.3.1",
+    "@storybook/addon-knobs": "^5.3.1",
+    "@storybook/addon-storysource": "^5.3.1",
+    "@storybook/react": "^5.3.1",
     "babel-loader": "^8.0.6",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.5.0",
