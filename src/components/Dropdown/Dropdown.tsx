@@ -66,6 +66,14 @@ class Dropdown extends Component<IDropdownProps> {
   @observable
   private isOpened: boolean = false;
 
+  public componentDidUpdate() {
+    if (this.isOpened) {
+      document.addEventListener('keydown', this.onPressEsc);
+    } else {
+      document.removeEventListener('keydown', this.onPressEsc);
+    }
+  }
+
   public render() {
     const {
       label,
@@ -86,7 +94,10 @@ class Dropdown extends Component<IDropdownProps> {
     return (
       <Base {...props}>
         <Wrapper>
-          <OutsideClickHandler onOutsideClick={this.onClose}>
+          <OutsideClickHandler
+            onOutsideClick={this.onClose}
+            disabled={!this.isOpened}
+          >
             <JustifyWrapper skin={skin}>
               {skin === DropdownSkins.DEFAULT ? (
                 <DropdownHeader
@@ -154,6 +165,12 @@ class Dropdown extends Component<IDropdownProps> {
       if (dropdownBody && dropdownBody.contains(nextFocusedElement)) {
         return;
       }
+      this.onClose();
+    }
+  };
+
+  private onPressEsc = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
       this.onClose();
     }
   };
