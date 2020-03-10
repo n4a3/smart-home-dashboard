@@ -26,20 +26,27 @@ import {
 } from './RightSide.styles';
 import { connect } from 'react-redux';
 import { IApplicationState } from '../../../store/types';
-import { getIsLoading, getError } from '../../../store/auth/selectors';
+import { getIsLoading, getError, getUser } from '../../../store/auth/selectors';
+import { register, login, logout } from '../../../store/auth/actions';
+import { Dispatch, bindActionCreators } from 'redux';
 
 const mapStateToProps = (state: IApplicationState) => ({
   isLoading: getIsLoading(state),
-  error: getError(state)
+  error: getError(state),
+  user: getUser(state)
 });
 
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators({ register, login, logout }, dispatch);
+
 type TStateProps = ReturnType<typeof mapStateToProps>;
+type DispatchProps = ReturnType<typeof mapDispatchToProps>;
 
 interface IProps {
   searchUrl: string;
 }
 
-type IRightSideProps = IProps & TStateProps;
+type IRightSideProps = IProps & TStateProps & DispatchProps;
 
 interface IRouteProps {
   fields: {
@@ -176,11 +183,6 @@ class RightSide extends Component<IRightSideProps> {
     }
   }
 
-  componentDidMount() {
-    console.log(this.props.error);
-    console.log(this.props.isLoading);
-  }
-
   render() {
     return (
       <RightSideWrapper>
@@ -274,23 +276,18 @@ class RightSide extends Component<IRightSideProps> {
   };
 
   private onSignIn = async () => {
-    if (this.emailError === false && this.password && !this.passwordError) {
-      const status = await rootStore.authStore.login(this.email, this.password);
-      if (status === null) {
-        return;
-      }
-      this.passwordError = !status;
-    }
+    this.props.login({
+      email: this.email,
+      password: this.password
+    });
   };
 
   private onSignUp = () => {
-    if (
-      this.emailError === false &&
-      this.passwordConfirmError === false &&
-      this.fullName
-    ) {
-      rootStore.authStore.register(this.email, this.password, this.fullName);
-    }
+    this.props.register({
+      email: this.email,
+      password: this.password,
+      name: this.fullName
+    });
   };
 
   private onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -298,4 +295,4 @@ class RightSide extends Component<IRightSideProps> {
   };
 }
 
-export default connect(mapStateToProps)(RightSide);
+export default connect(mapStateToProps, mapDispatchToProps)(RightSide);
