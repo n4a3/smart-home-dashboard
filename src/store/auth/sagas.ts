@@ -11,7 +11,7 @@ const getStages = <T1, T2, T3>(action: {
 
 // HANDLERS
 
-function* handleRegister(action: ReturnType<typeof actions.register>) {
+function* handleRegister(action: ReturnType<typeof actions.actions.register>) {
   const [request, success, failure] = getStages(actions.registerAsync);
   yield put(request());
 
@@ -23,7 +23,7 @@ function* handleRegister(action: ReturnType<typeof actions.register>) {
   }
 }
 
-function* handleLogin(action: ReturnType<typeof actions.login>) {
+function* handleLogin(action: ReturnType<typeof actions.actions.login>) {
   const [request, success, failure] = getStages(actions.loginAsync);
   yield put(request());
 
@@ -37,7 +37,7 @@ function* handleLogin(action: ReturnType<typeof actions.login>) {
 
 function handleLogout() {
   call(logout);
-  put(actions.logout());
+  put(actions.actions.logout());
 }
 
 // WATCHERS

@@ -26,27 +26,22 @@ import {
 } from './RightSide.styles';
 import { connect } from 'react-redux';
 import { IApplicationState } from '../../../store/types';
-import { getIsLoading, getError, getUser } from '../../../store/auth/selectors';
-import { register, login, logout } from '../../../store/auth/actions';
+import { actions } from '../../../store/auth/actions';
 import { Dispatch, bindActionCreators } from 'redux';
 
-const mapStateToProps = (state: IApplicationState) => ({
-  isLoading: getIsLoading(state),
-  error: getError(state),
-  user: getUser(state)
-});
+const mapStateToProps = (state: IApplicationState) => state.auth;
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators({ register, login, logout }, dispatch);
+  bindActionCreators(actions, dispatch);
 
 type TStateProps = ReturnType<typeof mapStateToProps>;
-type DispatchProps = ReturnType<typeof mapDispatchToProps>;
+type TDispatchProps = ReturnType<typeof mapDispatchToProps>;
 
 interface IProps {
   searchUrl: string;
 }
 
-type IRightSideProps = IProps & TStateProps & DispatchProps;
+type IRightSideProps = IProps & TStateProps & TDispatchProps;
 
 interface IRouteProps {
   fields: {
