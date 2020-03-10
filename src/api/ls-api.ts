@@ -13,26 +13,23 @@ const delayedAction = async (errorValue: string) =>
     }
   });
 
-export const register = async (
-  email: string,
-  password: string,
-  name: string
-) => {
-  return delayedAction('Registration failed, network error').then(() => {
-    localStorage.setItem(
-      'fakeCreds',
-      JSON.stringify({ email, password, name })
-    );
+export const register = async (creds: {
+  email: string;
+  password: string;
+  name: string;
+}) => {
+  return delayedAction('Registration failed, test error').then(() => {
+    localStorage.setItem('fakeCreds', JSON.stringify(creds));
     return true;
   });
 };
 
-export const login = async (email: string, password: string) => {
-  return delayedAction('Login failed, network error').then(() => {
+export const login = async (creds: { email: string; password: string }) => {
+  return delayedAction('Login failed, test error').then(() => {
     const key = localStorage.getItem('fakeCreds');
     if (key) {
       const parsed = JSON.parse(key);
-      if (parsed.email === email && parsed.password === password) {
+      if (parsed.email === creds.email && parsed.password === creds.password) {
         setAuthorizedToLS(parsed.name);
         return parsed.name;
       }

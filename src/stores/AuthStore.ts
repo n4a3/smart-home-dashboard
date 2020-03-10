@@ -33,14 +33,18 @@ export class AuthStore {
     return this.isLoading;
   }
 
-  public register = async (email: string, password: string, name: string) => {
+  public register = async (creds: {
+    email: string;
+    password: string;
+    name: string;
+  }) => {
     this.clearError();
     this.isLoading = true;
     try {
-      const res = await register(email, password, name);
+      const res = await register(creds);
       if (res) {
         window.location.replace('#/login');
-        this.login(email, password);
+        this.login(creds);
       }
     } catch (error) {
       this.setError(error);
@@ -48,11 +52,11 @@ export class AuthStore {
     }
   };
 
-  public login = async (email: string, password: string) => {
+  public login = async (creds: { email: string; password: string }) => {
     this.clearError();
     this.isLoading = true;
     try {
-      const res = await login(email, password);
+      const res = await login(creds);
       this.isLoading = false;
       if (res) {
         this.authorizedUser = res;

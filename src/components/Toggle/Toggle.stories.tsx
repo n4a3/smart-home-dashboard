@@ -1,20 +1,24 @@
 import { storiesOf } from '@storybook/react';
 import React, { Component } from 'react';
 import Toggle from './Toggle';
-import { observer } from 'mobx-react';
-import { observable } from 'mobx';
 
-@observer
-class ToggleStory extends Component {
-  @observable
-  private checked: boolean = false;
+interface IState {
+  checked: boolean;
+}
 
-  public render() {
-    return <Toggle checked={this.checked} onClick={this.toggle} />;
+class ToggleStory extends Component<{}, IState> {
+  readonly state: IState = {
+    checked: false
+  };
+
+  render() {
+    return <Toggle checked={this.state.checked} onClick={this.toggle} />;
   }
 
   private toggle = () => {
-    this.checked = !this.checked;
+    this.setState({
+      checked: !this.state.checked
+    });
   };
 }
 

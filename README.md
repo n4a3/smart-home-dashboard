@@ -2,7 +2,7 @@
 
 ## [Demo](https://n4a3.github.io/smart-home) | [Storybook](https://n4a3.github.io/smart-home-storybook) | [Design by InVision](https://www.invisionapp.com/inside-design/design-resources/smart-home-ui-kit/)
 
-## TypeScript, React, MobX, React Pose, Styled Components
+## TypeScript, React, Redux, React Pose, Styled Components
 
 ### You can register on dashboard. Credentials will be stored in localStorage.<br />After registration you can log in/log out.
 

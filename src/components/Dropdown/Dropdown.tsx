@@ -1,5 +1,3 @@
-import { observable } from 'mobx';
-import { observer } from 'mobx-react';
 import React, { Component, Fragment } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { PoseGroup } from 'react-pose';
@@ -59,22 +57,26 @@ interface IProps {
   flatButtonSkin?: ButtonSkins;
 }
 
+interface IState {
+  isOpened: boolean;
+}
+
 type IDropdownProps = IProps & IDropdownBodyProps;
 
-@observer
-class Dropdown extends Component<IDropdownProps> {
-  @observable
-  private isOpened: boolean = false;
+class Dropdown extends Component<IDropdownProps, IState> {
+  readonly state: IState = {
+    isOpened: false
+  };
 
-  public componentDidUpdate() {
-    if (this.isOpened) {
+  componentDidUpdate() {
+    if (this.state.isOpened) {
       document.addEventListener('keydown', this.onPressEsc);
     } else {
       document.removeEventListener('keydown', this.onPressEsc);
     }
   }
 
-  public render() {
+  render() {
     const {
       label,
       children,
@@ -96,7 +98,7 @@ class Dropdown extends Component<IDropdownProps> {
         <Wrapper>
           <OutsideClickHandler
             onOutsideClick={this.onClose}
-            disabled={!this.isOpened}
+            disabled={!this.state.isOpened}
           >
             <JustifyWrapper skin={skin}>
               {skin === DropdownSkins.DEFAULT ? (
@@ -108,7 +110,7 @@ class Dropdown extends Component<IDropdownProps> {
                 >
                   <LabelWrapper>{children}</LabelWrapper>
                   <IconWrapper
-                    isOpened={this.isOpened}
+                    isOpened={this.state.isOpened}
                     isRotatable={isRotatable}
                   >
                     <Icon />
@@ -124,7 +126,7 @@ class Dropdown extends Component<IDropdownProps> {
                 </Button>
               )}
               <PoseGroup>
-                {this.isOpened && (
+                {this.state.isOpened && (
                   <DropdownBody
                     key="drp-body"
                     bodyWidth={bodyWidth}
@@ -143,23 +145,27 @@ class Dropdown extends Component<IDropdownProps> {
   }
 
   private onClick = () => {
-    this.isOpened ? this.onClose() : this.onOpen();
+    this.state.isOpened ? this.onClose() : this.onOpen();
   };
 
   private onClose = () => {
     const { onClose = () => null } = this.props;
-    this.isOpened = false;
+    this.setState({
+      isOpened: false
+    });
     onClose();
   };
 
   private onOpen = () => {
     const { onOpen = () => null } = this.props;
-    this.isOpened = true;
+    this.setState({
+      isOpened: true
+    });
     onOpen();
   };
 
   private onBlur = (event: React.FocusEvent<HTMLButtonElement>) => {
-    if (this.isOpened) {
+    if (this.state.isOpened) {
       const dropdownBody = event.currentTarget.nextElementSibling;
       const nextFocusedElement = event.relatedTarget as Node;
       if (dropdownBody && dropdownBody.contains(nextFocusedElement)) {

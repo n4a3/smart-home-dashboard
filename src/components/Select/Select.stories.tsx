@@ -1,19 +1,22 @@
 import { storiesOf } from '@storybook/react';
-import { observable } from 'mobx';
-import { observer } from 'mobx-react';
+
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Calendar } from '../../assets/calendar.svg';
 import Select from './Select';
 
+interface IState {
+  selected: number | null;
+}
+
 const Margin = styled.div`
   margin-bottom: 4rem;
 `;
 
-@observer
-class SelectStory extends Component {
-  @observable
-  private selected: number | null = null;
+class SelectStory extends Component<{}, IState> {
+  readonly state: IState = {
+    selected: null
+  };
 
   private items = [
     'First item',
@@ -32,21 +35,21 @@ class SelectStory extends Component {
     'Sunday'
   ];
 
-  public render() {
+  render() {
     return (
       <Fragment>
         <Select
           label="Default 'Select'"
           items={this.items}
           onSelect={this.onSelect}
-          selected={this.selected}
+          selected={this.state.selected}
         />
         <Margin />
         <Select
           label="'Select' which shows selected item"
           items={this.items}
           onSelect={this.onSelect}
-          selected={this.selected}
+          selected={this.state.selected}
           showSelected
         />
         <Margin />
@@ -54,7 +57,7 @@ class SelectStory extends Component {
           label="'Select' with fixed width"
           items={this.items}
           onSelect={this.onSelect}
-          selected={this.selected}
+          selected={this.state.selected}
           bodyWidth="200px"
           showSelected
         />
@@ -63,7 +66,7 @@ class SelectStory extends Component {
           label="'Select' with custom icon and placeholder"
           items={this.days}
           onSelect={this.onSelect}
-          selected={this.selected}
+          selected={this.state.selected}
           icon={Calendar}
           placeholder="Select day"
           showSelected
@@ -73,7 +76,9 @@ class SelectStory extends Component {
   }
 
   private onSelect = (index: number) => {
-    this.selected = index;
+    this.setState({
+      selected: index
+    });
   };
 }
 

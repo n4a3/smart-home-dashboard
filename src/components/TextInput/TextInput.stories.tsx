@@ -1,23 +1,26 @@
 import { storiesOf } from '@storybook/react';
-import { observable } from 'mobx';
-import { observer } from 'mobx-react';
+
 import React, { Component } from 'react';
 import TextInput from './TextInput';
 
-@observer
-class TextInputStory extends Component {
-  @observable
-  private value: string = 'Hello';
-  @observable
-  private hasError: boolean | null = null;
+interface IState {
+  value: string;
+  hasError: boolean | null;
+}
 
-  public render() {
+class TextInputStory extends Component<{}, IState> {
+  readonly state: IState = {
+    value: 'Hello',
+    hasError: null
+  };
+
+  render() {
     return (
       <TextInput
         label="Text"
-        value={this.value}
+        value={this.state.value}
         onChange={this.onChange}
-        hasError={this.hasError}
+        hasError={this.state.hasError}
         type="email"
       />
     );
@@ -25,8 +28,10 @@ class TextInputStory extends Component {
 
   private onChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { value, validity } = e.currentTarget;
-    this.value = value;
-    this.hasError = value ? !validity.valid : true;
+    this.setState({
+      value,
+      hasError: value ? !validity.valid : true
+    });
   };
 }
 

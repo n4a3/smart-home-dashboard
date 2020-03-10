@@ -1,50 +1,38 @@
 import React, { Component, Suspense, lazy } from 'react';
 import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
-import { GlobalStyle, LoaderWraper } from './App.styles';
-import PrivateRoute from './PrivateRoute/PrivateRoute';
+import { GlobalStyle, LoaderWrapper } from './App.styles';
+// import PrivateRoute from './PrivateRoute';
 import Loader from '../../components/Loader';
-import { observer } from 'mobx-react';
-import { observable } from 'mobx';
-import Button from '../../components/Button';
+import ErrorBoundary from './ErrorBoundary';
 
 const Auth = lazy(() => import('../../views/Auth'));
-const Dashboard = lazy(() => import('../../views/Dashboard'));
+// const Dashboard = lazy(() => import('../../views/Dashboard'));
 
-@observer
 class App extends Component {
-  @observable
-  private hasError = false;
-
-  public componentDidMount() {
+  componentDidMount() {
     document.body.addEventListener('mousedown', this.setMouseInput);
     document.body.addEventListener('keydown', this.keyboardHandler);
   }
 
-  public componentDidCatch() {
-    this.hasError = true;
-  }
-
-  public render() {
+  render() {
     return (
       <HashRouter>
         <GlobalStyle />
-        {this.hasError ? (
-          <Button onClick={() => window.location.reload()}>Refresh</Button>
-        ) : (
+        <ErrorBoundary>
           <Suspense
             fallback={
-              <LoaderWraper>
+              <LoaderWrapper>
                 <Loader />
-              </LoaderWraper>
+              </LoaderWrapper>
             }
           >
             <Switch>
-              <PrivateRoute path="/dashboard" component={Dashboard} />
+              {/* <PrivateRoute path="/dashboard" component={Dashboard} /> */}
               <Route path="/login" component={Auth} />
-              <Redirect to="/dashboard" />
+              <Redirect to="/login" />
             </Switch>
           </Suspense>
-        )}
+        </ErrorBoundary>
       </HashRouter>
     );
   }

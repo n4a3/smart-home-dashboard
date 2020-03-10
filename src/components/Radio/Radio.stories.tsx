@@ -1,25 +1,27 @@
 import { storiesOf } from '@storybook/react';
 import Radio from './Radio';
 import React, { Fragment, Component } from 'react';
-import { observer } from 'mobx-react';
-import { observable } from 'mobx';
 
-@observer
-class RadioStory extends Component {
-  @observable
-  private listSelected: number[] = [];
-  @observable
-  private radioSelected: number | null = null;
+interface IState {
+  listSelected: number[];
+  radioSelected: number | null;
+  listItems: string[];
+}
 
-  private listItems = ['First', 'Second', 'Third'];
+class RadioStory extends Component<{}, IState> {
+  readonly state: IState = {
+    listSelected: [],
+    radioSelected: null,
+    listItems: ['First', 'Second', 'Third']
+  };
 
   render() {
     return (
       <Fragment>
         List:
-        {this.listItems.map((item, index) => {
+        {this.state.listItems.map((item, index) => {
           const onClick = () => this.listClick(index);
-          const selected = this.listSelected.indexOf(index) !== -1;
+          const selected = this.state.listSelected.indexOf(index) !== -1;
           return (
             <Radio onClick={onClick} selected={selected} key={index}>
               {item}
@@ -27,11 +29,13 @@ class RadioStory extends Component {
           );
         })}
         Radio:
-        {this.listItems.map((item, index) => {
+        {this.state.listItems.map((item, index) => {
           const onClick = () => {
-            this.radioSelected = index;
+            this.setState({
+              radioSelected: index
+            });
           };
-          const selected = this.radioSelected === index;
+          const selected = this.state.radioSelected === index;
           return (
             <Radio onClick={onClick} selected={selected} key={index} circle>
               {item}
@@ -43,11 +47,20 @@ class RadioStory extends Component {
   }
 
   private listClick = (index: number) => {
-    const idx = this.listSelected.indexOf(index);
+    const idx = this.state.listSelected.indexOf(index);
     if (idx !== -1) {
-      this.listSelected.splice(idx, 1);
+      const newList = [
+        ...this.state.listSelected.slice(idx),
+        ...this.state.listSelected.slice(idx + 1)
+      ];
+      this.setState({
+        listSelected: newList
+      });
     } else {
-      this.listSelected.push(index);
+      const newList = [...this.state.listSelected, index];
+      this.setState({
+        listSelected: newList
+      });
     }
   };
 }

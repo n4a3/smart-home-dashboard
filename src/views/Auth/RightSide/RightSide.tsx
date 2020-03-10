@@ -1,5 +1,7 @@
+// @ts-nocheck
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
+
 import React, { Component } from 'react';
 import { PoseGroup } from 'react-pose';
 import { ReactComponent as SimpleLogo } from '../../../assets/simple-logo.svg';
@@ -22,10 +24,22 @@ import {
   RightSideWrapper,
   TopWrapper
 } from './RightSide.styles';
+import { connect } from 'react-redux';
+import { IApplicationState } from '../../../store/types';
+import { getIsLoading, getError } from '../../../store/auth/selectors';
 
-interface IRightSideProps {
+const mapStateToProps = (state: IApplicationState) => ({
+  isLoading: getIsLoading(state),
+  error: getError(state)
+});
+
+type TStateProps = ReturnType<typeof mapStateToProps>;
+
+interface IProps {
   searchUrl: string;
 }
+
+type IRightSideProps = IProps & TStateProps;
 
 interface IRouteProps {
   fields: {
@@ -162,7 +176,12 @@ class RightSide extends Component<IRightSideProps> {
     }
   }
 
-  public render() {
+  componentDidMount() {
+    console.log(this.props.error);
+    console.log(this.props.isLoading);
+  }
+
+  render() {
     return (
       <RightSideWrapper>
         <ContentWrapper>
@@ -279,4 +298,4 @@ class RightSide extends Component<IRightSideProps> {
   };
 }
 
-export default RightSide;
+export default connect(mapStateToProps)(RightSide);

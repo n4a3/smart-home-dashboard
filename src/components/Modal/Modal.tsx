@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Portal } from 'react-portal';
 import {
   ModalWrapper,
@@ -13,8 +13,6 @@ import {
 import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import { clickable } from '../../hocs/clickable';
 import { PoseGroup } from 'react-pose';
-import { observer } from 'mobx-react';
-import { observable } from 'mobx';
 import OutsideClickHandler from 'react-outside-click-handler';
 
 interface IModalProps {
@@ -24,31 +22,40 @@ interface IModalProps {
   title?: string;
 }
 
+interface IState {
+  isOpened: boolean;
+}
+
 const ClickableCloseIcon = clickable(CloseIcon);
 
-@observer
-class Modal extends Component<IModalProps> {
-  @observable
-  private isOpened: boolean = true;
+class Modal extends PureComponent<IModalProps, IState> {
+  readonly state: IState = {
+    isOpened: true
+  };
 
-  public componentDidUpdate() {
+  componentDidUpdate(prevProps: IModalProps) {
+    if (prevProps.isOpened === this.props.isOpened) {
+      return;
+    }
     if (!this.props.isOpened) {
-      this.isOpened = true;
+      this.setState(() => ({
+        isOpened: true
+      }));
       document.removeEventListener('keydown', this.onPressEsc);
     } else {
       document.addEventListener('keydown', this.onPressEsc);
     }
   }
 
-  public render() {
+  render() {
     const { children, isOpened: isOpenedExt, onClose, title } = this.props;
     return (
       isOpenedExt && (
         <Portal>
           <LayerOverlay>
             <PoseGroup animateOnMount onRest={onClose}>
-              {this.isOpened && <OverlayStyled key="OS" />}
-              {this.isOpened && (
+              {this.state.isOpened && <OverlayStyled key="OS" />}
+              {this.state.isOpened && (
                 <PosedChildren key="PC">
                   <OutsideClickHandler onOutsideClick={this.onClose}>
                     <ModalWrapper>
@@ -75,7 +82,9 @@ class Modal extends Component<IModalProps> {
   }
 
   private onClose = () => {
-    this.isOpened = false;
+    this.setState({
+      isOpened: false
+    });
   };
 
   private onPressEsc = (event: KeyboardEvent) => {
