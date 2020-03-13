@@ -66,7 +66,7 @@ class Dropdown extends Component<IDropdownProps> {
   @observable
   private isOpened: boolean = false;
 
-  public componentDidUpdate() {
+  componentDidUpdate() {
     if (this.isOpened) {
       document.addEventListener('keydown', this.onPressEsc);
     } else {
@@ -74,7 +74,7 @@ class Dropdown extends Component<IDropdownProps> {
     }
   }
 
-  public render() {
+  render() {
     const {
       label,
       children,

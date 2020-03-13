@@ -8,7 +8,7 @@ interface IDashboardProps {}
 
 @observer
 class Dashboard extends Component<IDashboardProps> {
-  public render() {
+  render() {
     return (
       <Wrapper>
         <Header />

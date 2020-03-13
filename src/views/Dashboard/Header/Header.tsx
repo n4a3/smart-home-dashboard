@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   HeaderWrapper,
   HeaderSection,
@@ -18,60 +18,54 @@ import Container from '../../../components/Container';
 import Dropdown from '../../../components/Dropdown';
 import { rootStore } from '../../../stores/RootStore';
 
-interface IHeaderProps {}
-
-class Header extends Component<IHeaderProps> {
-  public render() {
-    return (
-      <HeaderWrapper>
-        <HeaderSection>
-          <Link to="?" style={{ position: 'relative', top: -8 }}>
-            <Logo />
-          </Link>
-          <ButtonMenuWrapper>
-            <Button
-              skin={ButtonSkins.ICON}
-              onClick={rootStore.dashboardStore.toggleNav}
-            >
-              <Menu />
-            </Button>
-          </ButtonMenuWrapper>
-        </HeaderSection>
-        <HeaderSection>
-          <Progress percent={60} icon={Storage} />
-          <Container marginRight={56} />
-          <Dropdown skin={DropdownSkins.FLAT} renderBody={() => 'Empty'}>
-            <Help />
-          </Dropdown>
-          <Dropdown skin={DropdownSkins.FLAT} renderBody={() => 'Empty'}>
-            <Email />
-          </Dropdown>
-          <Dropdown
-            skin={DropdownSkins.FLAT}
-            bodyWidth={272}
-            renderBody={() => 'Empty'}
+const Header = () => (
+  <HeaderWrapper>
+    <HeaderSection>
+      <Link to="?" style={{ position: 'relative', top: -8 }}>
+        <Logo />
+      </Link>
+      <ButtonMenuWrapper>
+        <Button
+          skin={ButtonSkins.ICON}
+          onClick={rootStore.dashboardStore.toggleNav}
+        >
+          <Menu />
+        </Button>
+      </ButtonMenuWrapper>
+    </HeaderSection>
+    <HeaderSection>
+      <Progress percent={60} icon={Storage} />
+      <Container marginRight={56} />
+      <Dropdown skin={DropdownSkins.FLAT} renderBody={() => 'Empty'}>
+        <Help />
+      </Dropdown>
+      <Dropdown skin={DropdownSkins.FLAT} renderBody={() => 'Empty'}>
+        <Email />
+      </Dropdown>
+      <Dropdown
+        skin={DropdownSkins.FLAT}
+        bodyWidth={272}
+        renderBody={() => 'Empty'}
+      >
+        <Notification />
+      </Dropdown>
+      <Dropdown
+        headerWidth={140}
+        renderBody={(onClose: () => void) => (
+          <Button
+            skin={ButtonSkins.TRANSPARENT}
+            width="100%"
+            onClick={rootStore.authStore.logout}
+            onBlur={onClose}
           >
-            <Notification />
-          </Dropdown>
-          <Dropdown
-            headerWidth={140}
-            renderBody={(onClose: () => void) => (
-              <Button
-                skin={ButtonSkins.TRANSPARENT}
-                width="100%"
-                onClick={rootStore.authStore.logout}
-                onBlur={onClose}
-              >
-                Sign Out
-              </Button>
-            )}
-          >
-            {rootStore.authStore.name}
-          </Dropdown>
-        </HeaderSection>
-      </HeaderWrapper>
-    );
-  }
-}
+            Sign Out
+          </Button>
+        )}
+      >
+        {rootStore.authStore.name}
+      </Dropdown>
+    </HeaderSection>
+  </HeaderWrapper>
+);
 
 export default Header;

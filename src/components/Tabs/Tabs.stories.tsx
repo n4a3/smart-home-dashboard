@@ -11,7 +11,7 @@ class TabsStory extends Component {
 
   private items = ['1111111', '2222222', 'third item', '4th item'];
 
-  public render() {
+  render() {
     return (
       <Tabs
         items={this.items}

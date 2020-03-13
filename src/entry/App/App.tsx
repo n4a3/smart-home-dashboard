@@ -15,16 +15,16 @@ class App extends Component {
   @observable
   private hasError = false;
 
-  public componentDidMount() {
+  componentDidMount() {
     document.body.addEventListener('mousedown', this.setMouseInput);
     document.body.addEventListener('keydown', this.keyboardHandler);
   }
 
-  public componentDidCatch() {
+  componentDidCatch() {
     this.hasError = true;
   }
 
-  public render() {
+  render() {
     return (
       <HashRouter>
         <GlobalStyle />

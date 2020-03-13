@@ -1,11 +1,11 @@
 import DashboardStore from './DashboardStore';
-import { AuthStore } from './AuthStore';
+import { AuthStore } from './auth/AuthStore';
 
 export class RootStore {
   readonly dashboardStore: DashboardStore;
   readonly authStore: AuthStore;
 
-  public constructor() {
+  constructor() {
     this.authStore = new AuthStore(this);
     this.dashboardStore = new DashboardStore(this);
   }

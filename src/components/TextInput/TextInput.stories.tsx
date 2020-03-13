@@ -11,7 +11,7 @@ class TextInputStory extends Component {
   @observable
   private hasError: boolean | null = null;
 
-  public render() {
+  render() {
     return (
       <TextInput
         label="Text"

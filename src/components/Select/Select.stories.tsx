@@ -32,7 +32,7 @@ class SelectStory extends Component {
     'Sunday'
   ];
 
-  public render() {
+  render() {
     return (
       <Fragment>
         <Select

@@ -31,7 +31,7 @@ class Modal extends Component<IModalProps> {
   @observable
   private isOpened: boolean = true;
 
-  public componentDidUpdate() {
+  componentDidUpdate() {
     if (!this.props.isOpened) {
       this.isOpened = true;
       document.removeEventListener('keydown', this.onPressEsc);
@@ -40,7 +40,7 @@ class Modal extends Component<IModalProps> {
     }
   }
 
-  public render() {
+  render() {
     const { children, isOpened: isOpenedExt, onClose, title } = this.props;
     return (
       isOpenedExt && (

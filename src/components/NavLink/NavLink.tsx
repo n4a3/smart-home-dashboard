@@ -11,6 +11,8 @@ const NavLink: React.FC<NavLinkProps> = ({
 }) => {
   return (
     <ListItemWrapper>
+      {/* 
+      //@ts-ignore */}
       <StyledNavLink to={to} exact {...props} onKeyDown={onLinkKeyPress}>
         {children}
       </StyledNavLink>

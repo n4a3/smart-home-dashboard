@@ -73,7 +73,7 @@ class Select extends Component<ISelectProps & IDropdownBodyProps> {
     }
   }
 
-  public render() {
+  render() {
     const { label, icon, bodyWidth, bodyHeight } = this.props;
     return (
       <Dropdown

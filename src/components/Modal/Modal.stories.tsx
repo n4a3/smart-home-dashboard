@@ -13,7 +13,7 @@ class ModalStory extends Component {
   @observable
   private value = '';
 
-  public render() {
+  render() {
     return (
       <Fragment>
         <Button onClick={this.openModal}>Open modal</Button>

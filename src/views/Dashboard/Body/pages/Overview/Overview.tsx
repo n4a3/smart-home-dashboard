@@ -6,9 +6,7 @@ import { observer } from 'mobx-react';
 import { PoseGroup } from 'react-pose';
 import SettingsModal from './SettingsModal';
 
-interface IOverviewProps {}
-
-const Overview: React.FC<IOverviewProps> = () => {
+const Overview = () => {
   const { key, css } = rootStore.dashboardStore.currentOverviewMode;
   return (
     <Fragment>

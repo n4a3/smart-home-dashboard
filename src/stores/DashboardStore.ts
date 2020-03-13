@@ -7,12 +7,12 @@ class DashboardStore {
   readonly settingsStore: SettingsStore;
 
   @observable
-  public isNavVisible = true;
+  isNavVisible = true;
   @observable
   private openedModals: string[] = [];
 
   @computed
-  public get currentOverviewMode() {
+  get currentOverviewMode() {
     const current = this.settingsStore.overviewSettings.layout;
     return {
       key: current,
@@ -20,29 +20,29 @@ class DashboardStore {
     };
   }
 
-  public constructor(readonly rootStore: RootStore) {
+  constructor(readonly rootStore: RootStore) {
     this.rootStore = rootStore;
     this.settingsStore = new SettingsStore(this);
   }
 
-  public toggleNav = () => {
+  toggleNav = () => {
     this.isNavVisible = !this.isNavVisible;
   };
 
-  public isModalOpened = (key: string) => this.openedModals.indexOf(key) !== -1;
+  isModalOpened = (key: string) => this.openedModals.indexOf(key) !== -1;
 
-  public openModal = (key: string) => {
+  openModal = (key: string) => {
     this.openedModals.push(key);
   };
 
-  public closeModal = (key: string) => {
+  closeModal = (key: string) => {
     const idx = this.openedModals.indexOf(key);
     if (idx !== -1) {
       this.openedModals.splice(idx, 1);
     }
   };
 
-  public closeAllModals = () => {
+  closeAllModals = () => {
     this.openedModals = [];
   };
 }

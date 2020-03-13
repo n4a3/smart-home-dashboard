@@ -1,9 +1,11 @@
-import { RootStore } from './RootStore';
+import { RootStore } from '../RootStore';
 import { observable, computed } from 'mobx';
-import { register, login, logout } from '../api/ls-api';
+import { register, login, logout } from '../../api/ls-api';
+import { FormStore } from './FormStore';
 
 export class AuthStore {
-  rootStore: RootStore;
+  readonly rootStore: RootStore;
+  readonly formStore: FormStore;
 
   @observable
   private authorizedUser: string | null = JSON.parse(
@@ -14,26 +16,27 @@ export class AuthStore {
   @observable
   private errorType: string | null = null;
 
-  public constructor(rootStore: RootStore) {
+  constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
+    this.formStore = new FormStore(this);
   }
 
   @computed
-  public get name() {
+  get name() {
     return this.authorizedUser;
   }
 
   @computed
-  public get error() {
+  get error() {
     return this.errorType;
   }
 
   @computed
-  public get loading() {
+  get loading() {
     return this.isLoading;
   }
 
-  public register = async (email: string, password: string, name: string) => {
+  register = async (email: string, password: string, name: string) => {
     this.clearError();
     this.isLoading = true;
     try {
@@ -48,7 +51,7 @@ export class AuthStore {
     }
   };
 
-  public login = async (email: string, password: string) => {
+  login = async (email: string, password: string) => {
     this.clearError();
     this.isLoading = true;
     try {
@@ -69,7 +72,7 @@ export class AuthStore {
     return null;
   };
 
-  public logout = () => {
+  logout = () => {
     this.authorizedUser = null;
     logout();
     window.location.replace('#/login');

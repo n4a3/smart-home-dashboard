@@ -9,7 +9,7 @@ class ToggleStory extends Component {
   @observable
   private checked: boolean = false;
 
-  public render() {
+  render() {
     return <Toggle checked={this.checked} onClick={this.toggle} />;
   }
 

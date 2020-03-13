@@ -5,9 +5,7 @@ import { rootStore } from '../../../../stores/RootStore';
 import { routes } from '../routes';
 import NavLink from '../../../../components/NavLink';
 
-interface INavigationProps {}
-
-const Navigation: React.FC<INavigationProps> = () => {
+const Navigation = () => {
   const { isNavVisible } = rootStore.dashboardStore;
   return (
     <NavList isVisible={isNavVisible}>

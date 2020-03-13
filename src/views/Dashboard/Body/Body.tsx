@@ -14,9 +14,7 @@ import {
 import Navigation from './Navigation';
 import { routes } from './routes';
 
-interface IBodyProps {}
-
-const Body: React.FC<IBodyProps> = () => {
+const Body = () => {
   return (
     <Wrapper>
       <Navigation />

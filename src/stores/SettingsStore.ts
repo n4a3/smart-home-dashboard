@@ -24,14 +24,14 @@ class SettingsStore {
   private layout = 0;
 
   @computed
-  public get overviewSettings(): IOverviewSettings {
+  get overviewSettings(): IOverviewSettings {
     return {
       sections: this.sectionSettings,
       layout: this.layout
     };
   }
 
-  public constructor(readonly dashboardStore: DashboardStore) {
+  constructor(readonly dashboardStore: DashboardStore) {
     this.dashboardStore = dashboardStore;
 
     const overviewSettings = localStorage.getItem('overviewSettings');
@@ -50,10 +50,7 @@ class SettingsStore {
     }
   }
 
-  public setOverviewSettings = (
-    newSectionSettings: boolean[],
-    newLayout: number
-  ) => {
+  setOverviewSettings = (newSectionSettings: boolean[], newLayout: number) => {
     this.sectionSettings = this.sectionSettings.map((setting, index) => ({
       title: setting.title,
       checked: newSectionSettings[index]

@@ -47,7 +47,7 @@ class SettingsModal extends Component {
     return [...Object.values(ModalTabs).filter(t => typeof t === 'string')];
   }
 
-  public render() {
+  render() {
     return (
       <Modal
         isOpened={this.isModalOpened}
