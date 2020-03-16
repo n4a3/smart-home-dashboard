@@ -14,7 +14,7 @@ import { ReactComponent as CloseIcon } from '../../assets/close.svg';
 import { clickable } from '../../hocs/clickable';
 import { PoseGroup } from 'react-pose';
 import { observer } from 'mobx-react';
-import { observable } from 'mobx';
+import { observable, action, runInAction } from 'mobx';
 import OutsideClickHandler from 'react-outside-click-handler';
 
 interface IModalProps {
@@ -33,7 +33,9 @@ class Modal extends Component<IModalProps> {
 
   componentDidUpdate() {
     if (!this.props.isOpened) {
-      this.isOpened = true;
+      runInAction(() => {
+        this.isOpened = true;
+      });
       document.removeEventListener('keydown', this.onPressEsc);
     } else {
       document.addEventListener('keydown', this.onPressEsc);
@@ -74,6 +76,7 @@ class Modal extends Component<IModalProps> {
     );
   }
 
+  @action
   private onClose = () => {
     this.isOpened = false;
   };

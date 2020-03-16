@@ -1,4 +1,4 @@
-import DashboardStore from './DashboardStore';
+import DashboardStore from './dashboard/DashboardStore';
 import { AuthStore } from './auth/AuthStore';
 
 export class RootStore {

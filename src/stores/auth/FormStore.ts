@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, runInAction } from 'mobx';
 import { AuthStore } from './AuthStore';
 import { ITextInputProps } from '../../components/TextInput/TextInput';
 
@@ -111,7 +111,6 @@ export class FormStore {
   private onEmailChange = (event: React.FormEvent<HTMLInputElement>) => {
     this.email = event.currentTarget.value;
     this.passwordError = null;
-    console.dir(this);
   };
 
   @action
@@ -136,6 +135,7 @@ export class FormStore {
     this.fullName = event.currentTarget.value;
   };
 
+  @action
   private validateEmail = (event: React.FormEvent<HTMLInputElement>) => {
     const {
       value: { length },
@@ -151,7 +151,9 @@ export class FormStore {
       if (status === null) {
         return;
       }
-      this.passwordError = !status;
+      runInAction(() => {
+        this.passwordError = !status;
+      });
     }
   };
 

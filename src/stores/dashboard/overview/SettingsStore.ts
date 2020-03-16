@@ -1,5 +1,7 @@
 import { computed, observable } from 'mobx';
-import DashboardStore from './DashboardStore';
+import DashboardStore from '../DashboardStore';
+import { RootStore } from '../../RootStore';
+import ModalStore from './ModalStore';
 
 export type TSectionsSettings = Array<{ title: string; checked: boolean }>;
 
@@ -18,6 +20,8 @@ const defSectionsSettings: TSectionsSettings = [
 ];
 
 class SettingsStore {
+  readonly modalStore: ModalStore;
+
   @observable
   private sectionSettings: TSectionsSettings;
   @observable
@@ -31,8 +35,13 @@ class SettingsStore {
     };
   }
 
-  constructor(readonly dashboardStore: DashboardStore) {
+  constructor(
+    readonly rootStore: RootStore,
+    readonly dashboardStore: DashboardStore
+  ) {
+    this.rootStore = rootStore;
     this.dashboardStore = dashboardStore;
+    this.modalStore = new ModalStore(rootStore, this);
 
     const overviewSettings = localStorage.getItem('overviewSettings');
     if (overviewSettings) {

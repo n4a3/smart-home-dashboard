@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { observable, computed } from 'mobx';
 import Modal from '../../../../../../components/Modal';
 import Tabs from '../../../../../../components/Tabs';
 import { rootStore } from '../../../../../../stores/RootStore';
@@ -13,71 +12,45 @@ import Button from '../../../../../../components/Button';
 import { ButtonSkins } from '../../../../../../types';
 import Sections from './Sections/Sections';
 import Layout from './Layout';
-
-enum ModalTabs {
-  SECTIONS,
-  LAYOUT
-}
+import { ModalTabs } from '../../../../../../types/ModalTabs';
 
 @observer
 class SettingsModal extends Component {
-  @observable
-  private selectedModalTab: ModalTabs = ModalTabs.SECTIONS;
-  @observable
-  private sectionsStatus = {
-    ...rootStore.dashboardStore.settingsStore.overviewSettings.sections.map(
-      setting => setting.checked
-    )
-  };
-
-  @observable
-  private selectedLayout: number =
-    rootStore.dashboardStore.settingsStore.overviewSettings.layout;
-
-  @computed
-  get isModalOpened() {
-    return rootStore.dashboardStore.isModalOpened('settings');
-  }
-
-  get sections() {
-    return rootStore.dashboardStore.settingsStore.overviewSettings.sections;
-  }
-
-  get modalTabs() {
-    return [...Object.values(ModalTabs).filter(t => typeof t === 'string')];
+  get modalStore() {
+    return rootStore.dashboardStore.settingsStore.modalStore;
   }
 
   render() {
     return (
       <Modal
-        isOpened={this.isModalOpened}
-        onClose={this.closeModal}
+        isOpened={this.modalStore.isModalOpened}
+        onClose={this.modalStore.closeModal}
         title="Overview Page Settings"
       >
         {(onClose: () => void) => {
           const onSave = () => {
-            this.saveSettings();
+            this.modalStore.saveSettings();
             onClose();
           };
           return (
             <ModalWrapper>
               <Tabs
-                items={this.modalTabs}
-                selected={this.selectedModalTab}
-                onSelect={this.selectTab}
+                items={this.modalStore.modalTabs}
+                selected={this.modalStore.selectedModalTab}
+                onSelect={this.modalStore.selectTab}
               />
-              {this.selectedModalTab === ModalTabs.SECTIONS && (
+              {this.modalStore.selectedModalTab === ModalTabs.SECTIONS && (
                 <SettingsWrapper>
                   <Sections
-                    settings={this.sections}
-                    settingsStatus={this.sectionsStatus}
+                    settings={this.modalStore.sections}
+                    settingsStatus={this.modalStore.sectionsStatus}
                   />
                 </SettingsWrapper>
               )}
-              {this.selectedModalTab === ModalTabs.LAYOUT && (
+              {this.modalStore.selectedModalTab === ModalTabs.LAYOUT && (
                 <Layout
-                  selected={this.selectedLayout}
-                  onSelect={this.selectLayout}
+                  selected={this.modalStore.selectedLayout}
+                  onSelect={this.modalStore.selectLayout}
                 />
               )}
               <ButtonsWrapper>
@@ -92,33 +65,6 @@ class SettingsModal extends Component {
       </Modal>
     );
   }
-
-  private selectTab = (index: number) => {
-    this.selectedModalTab = index;
-  };
-
-  private closeModal = () => {
-    rootStore.dashboardStore.closeModal('settings');
-    this.selectTab(ModalTabs.SECTIONS);
-    this.sectionsStatus = {
-      ...rootStore.dashboardStore.settingsStore.overviewSettings.sections.map(
-        setting => setting.checked
-      )
-    };
-    this.selectedLayout =
-      rootStore.dashboardStore.settingsStore.overviewSettings.layout;
-  };
-
-  private saveSettings = () => {
-    rootStore.dashboardStore.settingsStore.setOverviewSettings(
-      this.sectionsStatus,
-      this.selectedLayout
-    );
-  };
-
-  private selectLayout = (index: number) => {
-    this.selectedLayout = index;
-  };
 }
 
 export default SettingsModal;

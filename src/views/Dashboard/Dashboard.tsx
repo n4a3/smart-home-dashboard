@@ -1,21 +1,14 @@
-import React, { Component } from 'react';
-import { observer } from 'mobx-react';
+import React from 'react';
 import Header from './Header';
 import { Wrapper } from './Dashboard.styles';
 import Body from './Body';
+import { observer } from 'mobx-react';
 
-interface IDashboardProps {}
+const Dashboard = () => (
+  <Wrapper>
+    <Header />
+    <Body />
+  </Wrapper>
+);
 
-@observer
-class Dashboard extends Component<IDashboardProps> {
-  render() {
-    return (
-      <Wrapper>
-        <Header />
-        <Body />
-      </Wrapper>
-    );
-  }
-}
-
-export default Dashboard;
+export default observer(Dashboard);

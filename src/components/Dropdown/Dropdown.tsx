@@ -16,6 +16,7 @@ import {
 } from './Dropdown.styles';
 import { DropdownSkins, ButtonSkins } from '../../types';
 import Button from '../Button';
+import { action } from 'mobx';
 
 interface IProps {
   children: any;
@@ -146,12 +147,14 @@ class Dropdown extends Component<IDropdownProps> {
     this.isOpened ? this.onClose() : this.onOpen();
   };
 
+  @action
   private onClose = () => {
     const { onClose = () => null } = this.props;
     this.isOpened = false;
     onClose();
   };
 
+  @action
   private onOpen = () => {
     const { onOpen = () => null } = this.props;
     this.isOpened = true;

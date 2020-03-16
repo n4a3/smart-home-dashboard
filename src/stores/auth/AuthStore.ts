@@ -1,5 +1,5 @@
 import { RootStore } from '../RootStore';
-import { observable, computed } from 'mobx';
+import { observable, computed, action } from 'mobx';
 import { register, login, logout } from '../../api/ls-api';
 import { FormStore } from './FormStore';
 
@@ -36,9 +36,10 @@ export class AuthStore {
     return this.isLoading;
   }
 
+  @action
   register = async (email: string, password: string, name: string) => {
     this.clearError();
-    this.isLoading = true;
+    this.setLoading(true);
     try {
       const res = await register(email, password, name);
       if (res) {
@@ -47,18 +48,19 @@ export class AuthStore {
       }
     } catch (error) {
       this.setError(error);
-      this.isLoading = false;
+      this.setLoading(false);
     }
   };
 
+  @action
   login = async (email: string, password: string) => {
     this.clearError();
-    this.isLoading = true;
+    this.setLoading(true);
     try {
-      const res = await login(email, password);
-      this.isLoading = false;
+      const res: string = await login(email, password);
+      this.setLoading(false);
       if (res) {
-        this.authorizedUser = res;
+        this.setUser(res);
         window.location.replace('#/dashboard');
         return true;
       } else {
@@ -68,21 +70,39 @@ export class AuthStore {
     } catch (error) {
       this.setError(error);
     }
-    this.isLoading = false;
+    this.setLoading(false);
     return null;
   };
 
+  @action
   logout = () => {
-    this.authorizedUser = null;
+    this.clearUser();
     logout();
     window.location.replace('#/login');
   };
 
+  @action
+  private setLoading = (state: boolean) => {
+    this.isLoading = state;
+  };
+
+  @action
   private setError = (error: string) => {
     this.errorType = error;
     window.addEventListener('popstate', this.clearError);
   };
 
+  @action
+  setUser = (user: string) => {
+    this.authorizedUser = user;
+  };
+
+  @action
+  clearUser = () => {
+    this.authorizedUser = null;
+  };
+
+  @action
   private clearError = () => {
     this.errorType = null;
     window.removeEventListener('popstate', this.clearError);

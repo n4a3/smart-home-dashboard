@@ -4,8 +4,11 @@ import { GlobalStyle, LoaderWraper } from './App.styles';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
 import Loader from '../../components/Loader';
 import { observer } from 'mobx-react';
-import { observable } from 'mobx';
+import { observable, runInAction } from 'mobx';
 import Button from '../../components/Button';
+import { configure } from 'mobx';
+
+configure({ enforceActions: 'always' });
 
 const Auth = lazy(() => import('../../views/Auth'));
 const Dashboard = lazy(() => import('../../views/Dashboard'));
@@ -21,7 +24,9 @@ class App extends Component {
   }
 
   componentDidCatch() {
-    this.hasError = true;
+    runInAction(() => {
+      this.hasError = true;
+    });
   }
 
   render() {

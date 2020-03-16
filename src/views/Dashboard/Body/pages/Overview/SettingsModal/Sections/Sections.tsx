@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Side, Divider } from './Sections.styles';
 import Setting from '../../../../../../../components/Setting';
 import Toggle from '../../../../../../../components/Toggle';
-import { TSectionsSettings } from '../../../../../../../stores/SettingsStore';
+import { TSectionsSettings } from '../../../../../../../stores/dashboard/overview/SettingsStore';
 import { observer } from 'mobx-react';
 
 interface ISectionsProps {

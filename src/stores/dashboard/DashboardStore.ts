@@ -1,7 +1,7 @@
-import { observable, computed } from 'mobx';
-import { RootStore } from './RootStore';
-import SettingsStore from './SettingsStore';
-import { gridLayouts } from '../constants/girdLayouts';
+import { observable, computed, action } from 'mobx';
+import { RootStore } from '../RootStore';
+import SettingsStore from './overview/SettingsStore';
+import { gridLayouts } from '../../constants/girdLayouts';
 
 class DashboardStore {
   readonly settingsStore: SettingsStore;
@@ -20,21 +20,24 @@ class DashboardStore {
     };
   }
 
+  isModalOpened = (key: string) => this.openedModals.indexOf(key) !== -1;
+
   constructor(readonly rootStore: RootStore) {
     this.rootStore = rootStore;
-    this.settingsStore = new SettingsStore(this);
+    this.settingsStore = new SettingsStore(rootStore, this);
   }
 
+  @action
   toggleNav = () => {
     this.isNavVisible = !this.isNavVisible;
   };
 
-  isModalOpened = (key: string) => this.openedModals.indexOf(key) !== -1;
-
+  @action
   openModal = (key: string) => {
     this.openedModals.push(key);
   };
 
+  @action
   closeModal = (key: string) => {
     const idx = this.openedModals.indexOf(key);
     if (idx !== -1) {
@@ -42,6 +45,7 @@ class DashboardStore {
     }
   };
 
+  @action
   closeAllModals = () => {
     this.openedModals = [];
   };
